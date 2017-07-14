@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <title>kings征信-贷款信息</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+     <script src="../dist/js/jquery-2.1.1.js" type="text/javascript"></script>
+     <script src="../dist/js/login/jqPaginator.min.js" type="text/javascript"></script>
+    <link href="../dist/css/login/myPage.css" rel="stylesheet" type="text/css" />
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../assets/js/ie-emulation-modes-warning.js" type="text/javascript"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--my style-->
+    <link href="../dist/css/web_style.css" rel="stylesheet" type="text/css" />
+    <link href="../dist/css/bootstrapValidator.css" rel="stylesheet" />
+    <link href="../dist/css/buttons.css" rel="stylesheet" type="text/css">
+    <link href="../dist/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!--<link href="../dist/css/login/login.css" rel="stylesheet" type="text/css" />-->
+</head>
+
+<body onload="loan(1)">
+
+
+
+    <nav class="navbar navbar-fixed-top navbar-credit">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="logo_a" href="#">Project name</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav nav_ul">
+                    <li>
+                        <a href="creatUser.html">新建用户</a>
+                    </li>
+                    <li class="active">
+                        <a href="user.html">用户列表</a>
+                    </li>
+                    <li>
+                        <a href="history.html">查询历史</a>
+                    </li>
+                    <li>
+                        <a href="account.html">账户信息</a>
+                    </li>
+                </ul>
+                <div class="sigin_out"><a href="singin.html">退出</a></div>
+            </div>
+            <!-- /.nav-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <!-- /.navbar -->
+
+
+
+
+
+    <div class="container container-fluid">
+        <div class="row bread_top">
+            <div class="pull-left">
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="user.html">查询</a>
+                    </li>
+                    <li class="active"><span id="user_username"></span>
+                        <span id="user_idcard"></span></li>
+                </ol>
+            </div>
+            <div class="pull-right">
+                <ul class="bread_right">
+                    <li>
+                        <a href="#" onclick="report()">征信报告</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="modellige()">模块列表</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="edit()">补充资料</a>
+                    </li>
+                    <li>
+                        <a class="active">贷款信息</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <button type="button" class="btn btn-lg btn-block btn-credit" data-toggle="modal" data-target="#myModal" data-target=".bs-example-modal-lg"
+                onclick="qingkong()">新增</button>
+            </div>
+        </div>
+        <div class="blank_20"></div>
+        <div class="table-responsive col-sm-offset-3 col-lg-offset-3 col-sm-6 col-lg-6">
+            <table class="table table_noBorder">
+                <thead>
+                    <tr>
+                        <th>提交人</th>
+                        <th>提交时间</th>
+                    </tr>
+                </thead>
+                <tbody id="commit">
+                </tbody>
+            </table>
+            <div id="messagewei" style="text-align: center; font-size: 30px; display: none;">没有记录</div>
+            <div id="historypage" style="text-align: center;">
+                    <div>
+                        <ul class="pagination" id="pagination">
+                        </ul>
+                        <input type="hidden" id="PageCount" runat="server" />
+                        <input type="hidden" id="PageSize" runat="server" value="5" />
+                        <input type="hidden" id="countindex" runat="server" value="5" />
+                        <!--设置最多显示的页码数 可以手动设置 默认为7-->
+                        <input type="hidden" id="visiblePages" runat="server" value="7" />
+                    </div>
+                    
+                    <script src="../dist/js/login/myPage1.js" type="text/javascript"></script>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- 模态框（Modal） -->
+        <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-lg" style="margin-top: 80px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">新增贷款信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="add_infor_div">
+                            <div class="add_infor_div_1">
+                                <div class="form-group">
+                                    <label for="exampleInputrepeatData">借款日期</label>
+                                    <input type="repeatData" class="form_datetime1 text_month select_noBorder form-control" id="exampleInputrepeatData1" placeholder="必填">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputrepeathetong">借款合同号</label>
+                                    <input type="repeathetong" class="form-control" id="exampleInputrepeathetong1" placeholder="" maxlength="15"
+                                    onkeyup="formatyemian(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputrepeatqixian">借款期限</label>
+                                    <input type="repeatqixian" class="form-control" id="exampleInputrepeatqixian1" placeholder="必填" maxlength="11"
+                                    onkeyup="formatyemian(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputrepeatmoney">借款金额</label>
+                                    <input type="repeatmoney" class="form-control" id="exampleInputrepeatmoney1" placeholder="必填"
+                                    onkeyup="formatyemian(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputTel">联系电话</label>
+                                    <input type="Tel" class="form-control" id="exampleInputTel1" placeholder=""
+                                    onkeyup="isTel(this)" maxlength="11">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputrepeatpurpose">借款用途</label>
+                                    <input type="repeatpurpose" class="form-control" id="exampleInputrepeatpurpose1" placeholder=""
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputrepeattype">借款类型</label>
+                                    <input type="repeattype" class="form-control" id="exampleInputtype1" placeholder="" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputaddress">联系地址</label>
+                                    <input type="address" class="form-control" id="exampleInputaddress1" placeholder=""
+                                   >
+                                </div>
+                            </div>
+
+
+
+
+                            <h4>当前状态</h4>
+                            <div class="add_infor_div_2">
+                                <div class="form-group">
+                                    <label for="repeat_or">是否在贷款</label>
+                                    <select id="sfzdk1" class="selectpicker show-tick select_noBorder">
+                                        <option>请选择</option>
+                                        <option>是</option>
+                                        <option data-subtext="option subtext">否</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact_or">是否失联</label>
+                                    <select id="sfsl1" class="selectpicker show-tick select_noBorder">
+                                        <option>请选择</option>
+                                        <option>是</option>
+                                        <option data-subtext="option subtext">否</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stages_or">是否又一次分期</label>
+                                    <select id="sfyycfq1" class="selectpicker show-tick select_noBorder">
+                                        <option>请选择</option>
+                                        <option>是</option>
+                                        <option data-subtext="option subtext">否</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stages_money">分期金额</label>
+                                    <input type="stages" class="form-control" id="stage_money1" placeholder="必填" onkeyup="formatyemian(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="month_money">每月还款</label>
+                                    <input type="monthmoney" class="form-control" id="month_money1" placeholder="必填" onkeyup="formatyemian(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="salary_money">薪资收入</label>
+                                    <input type="salary" class="form-control" id="salary_money1" placeholder="必填" onkeyup="formatyemian(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">公司地址</label>
+                                    <input type="company_address" class="form-control" id="address1" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="company_type">公司类型</label>
+                                    <input type="companytype" class="form-control" id="company_type1" placeholder="">
+                                </div>
+                            </div>
+
+
+
+
+                            <h4>拒贷信息</h4>
+                            <div class="add_infor_div_3">
+                                <div class="form-group">
+                                    <label for="repeat_or">初审拒绝</label>
+                                    <select id="csjj1" class="selectpicker show-tick select_noBorder">
+                                        <option>请选择</option>
+                                        <option>是</option>
+                                        <option data-subtext="option subtext">否</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact_or">诈骗</label>
+                                    <select id="zp1" class="selectpicker show-tick select_noBorder">
+                                        <option>请选择</option>
+                                        <option>是</option>
+                                        <option data-subtext="option subtext">否</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stages_or">拒贷日期</label>
+                                    <input type="stages" class="form_datetime1 text_month select_noBorder form-control" id="stages_or1" placeholder="必填"
+                                    onkeyup="formatyemian(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="stages_money">拒贷金额</label>
+                                    <input type="stages" class="form-control" id="stages_money1" placeholder="必填" onkeyup="formatyemian(this)">
+                                </div>
+                            </div>
+
+
+
+
+                            <h4>异常交易情况</h4>
+                            <div class="add_infor_div_4">
+                                <div class="form-group">
+                                    <label for="delay_or">是否延期</label>
+                                    <select id="sfyq1" class="selectpicker show-tick select_noBorder">
+                                        <option>请选择</option>
+                                        <option>是</option>
+                                        <option data-subtext="option subtext">否</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="in_auctioned">以资抵债</label>
+                                    <select id="yzdz1" class="selectpicker show-tick select_noBorder">
+                                        <option>请选择</option>
+                                        <option>是</option>
+                                        <option data-subtext="option subtext">否</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="long_owed">长期欠款</label>
+                                    <input type="long_owed" class="form-control" id="long_owed1" placeholder="必填">
+                                </div>
+                                <div class="form-group">
+                                    <label for="arrears_or">是否逾期</label>
+                                    <input type="arrears" class="form-control" id="arrears_or1" placeholder="必填">
+                                </div>
+                                <div class="form-group">
+                                    <label for="arrears_day">逾期天数</label>
+                                    <input type="arrearsday" class="form-control" id="arrears_day1" placeholder="" onkeyup="formatyemian(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="remarks">其他补充信息</label>
+                                    <input type="remark" class="form-control" id="remarks1" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-credit col-sm-offset-4 col-sm-3" onclick="firm()" id="tijiao1" disabled="true">提交</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+       
+
+    <div class="modal fade bs-example-modal-sm" style="z-index: 9999;" id="siginWei" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-sm" role="document" style="width: 300px;">
+                <div class="modal-content">
+                    <div class="modal-body" style="text-align: center; font-size: 18px;">
+                        <div class="blank_20"></div>
+                        <p id="myModalContent">
+                            请先登录
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-credit btn-block" data-dismiss="modal" id="modal_btn" onclick="toSigin()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!-- 模态框（Modal） -->
+    
+
+
+
+
+    <div class="modal fade bs-example-modal-lg" id="myModal_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg" style="margin-top: 80px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">查看贷款信息</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="add_infor_div">
+                        <div class="add_infor_div_1">
+                            <div class="form-group">
+                                <label for="exampleInputrepeatData">借款日期</label>
+                                <input type="repeatData" class="form-control" id="exampleInputrepeatData" placeholder=""  disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputrepeathetong">借款合同号</label>
+                                <input type="repeathetong" class="form-control" id="exampleInputrepeathetong" placeholder="" value="ABC-001" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputrepeatqixian">借款期限</label>
+                                <input type="repeatqixian" class="form-control" id="exampleInputrepeatqixian" placeholder="" value="1年" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputrepeatmoney">借款金额</label>
+                                <input type="repeatmoney" class="form-control" id="exampleInputrepeatmoney" placeholder="" value="100万" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputTel">联系电话</label>
+                                <input type="Tel" class="form-control" id="exampleInputTel" placeholder="" value="15800564978" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputrepeatpurpose">借款用途</label>
+                                <input type="repeatpurpose" class="form-control" id="exampleInputrepeatpurpose" placeholder="" value="投资" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputrepeattype">借款类型</label>
+                                <input type="repeattype" class="form-control" id="exampleInputtype" placeholder="" value="XX贷" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputaddress">联系地址</label>
+                                <input type="address" class="form-control" id="exampleInputaddress" placeholder="" value="上海市徐汇区虹梅路2666弄30号楼803" disabled>
+                            </div>
+                        </div>
+
+
+
+                        <h4>当前状态</h4>
+                        <div class="add_infor_div_2">
+                            <div class="form-group">
+                                <label for="repeat_or">是否在贷款</label>
+                                <input type="arrears" class="form-control" id="sfzdk" placeholder="" value="是" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact_or">是否失联</label>
+                                <input type="arrears" class="form-control" id="sfsl" placeholder="" value="否" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="stages_or">是否又一次分期</label>
+                                <input type="arrears" class="form-control" id="sfyycfq" placeholder="" value="否" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="stage_money">分期金额</label>
+                                <input type="stages" class="form-control" id="stage_money" placeholder="" value="5000" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="month_money">每月还款</label>
+                                <input type="monthmoney" class="form-control" id="month_money" placeholder="" value="5000" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="salary_money">薪资收入</label>
+                                <input type="salary" class="form-control" id="salary_money" placeholder="" value="100000" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">公司地址</label>
+                                <input type="company_address" class="form-control" id="address" placeholder="" value="上海市名大东路1089号" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="company_type">公司类型</label>
+                                <input type="companytype" class="form-control" id="company_type" placeholder="" value="民营" disabled>
+                            </div>
+                        </div>
+
+
+
+                        <h4>拒贷信息</h4>
+                        <div class="add_infor_div_3">
+                            <div class="form-group">
+                                <label for="repeat_or">初审拒绝</label>
+                                <input type="arrears" class="form-control" id="csjj" placeholder="" value="是" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact_or">诈骗</label>
+                                <input type="arrears" class="form-control" id="zp" placeholder="" value="否" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="stages_or">拒贷日期</label>
+                                <input type="stages" class="form-control" id="stages_or" placeholder="" value="2016-08-17" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="stages_money">拒贷金额</label>
+                                <input type="stages" class="form-control" id="stages_money" placeholder="" value="5000000" disabled>
+                            </div>
+                        </div>
+
+
+
+                        <h4>异常交易情况</h4>
+                        <div class="add_infor_div_4">
+                            <div class="form-group">
+                                <label for="delay_or">是否延期</label>
+                                <input type="arrears" class="form-control" id="sfyq" placeholder="" value="是" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="in_auctioned">以资抵债</label>
+                                <input type="arrears" class="form-control" id="yzdz" placeholder="" value="是" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="long_owed">长期欠款</label>
+                                <input type="long_owed" class="form-control" id="long_owed" placeholder="" value="0" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="arrears_or">是否逾期</label>
+                                <input type="arrears" class="form-control" id="arrears_or" placeholder="" value="否" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="arrears_day">逾期天数</label>
+                                <input type="arrearsday" class="form-control" id="arrears_day" placeholder="" value="0" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="remarks">其他补充信息</label>
+                                <input type="remark" class="form-control" id="remarks" placeholder="" value="无" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-credit col-sm-offset-4 col-sm-3" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    </div>
+    
+
+
+
+
+    <script src="../dist/js/bootstrap.js" type="text/javascript"></script>
+    <script src="../dist/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../dist/js/common.js" ></script>
+    <script src="../dist/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+    <script src="../dist/js/icheck/icheck.js" type="text/javascript"></script>
+    <script src="../dist/js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="../dist/js/web_jscript.js" type="text/javascript"></script>
+    <script scc="../dist/js/login/loan_info.js"></script>
+    <script type="text/javascript" src="../dist/js/login/loan_infor.js"></script>
+
+    <script type="text/javascript">
+        
+        function formatyemian(obj){
+        var tel=obj.value;
+        var telReg = tel.match(/^[0-9]*$/);
+        if(telReg){
+            obj.style.borderColor = '#b2a8fd'; 
+            }else{
+              obj.style.borderColor = 'red';
+            }
+
+        formatyemian1();
+        if(obj.style.borderColor=="red"){
+             $("#tijiao1").attr("disabled","true");
+        }else{
+            $("#tijiao1").removeAttr("disabled");
+        };
+
+      }
+
+
+
+     function qingkong(){
+         //借款日期
+          $("#exampleInputrepeatData1").val("");
+          //借款合同号
+          $("#exampleInputrepeathetong1").val("");
+          //借款期限
+          $("#exampleInputrepeatqixian1").val("");
+          //借款金额
+          $("#exampleInputrepeatmoney1").val("");
+          //联系电话
+          $("#exampleInputTel1").val("");
+          //借款用途
+           $("#exampleInputrepeatpurpose1").val("");
+          //借款类型
+          $("#exampleInputtype1").val("");
+          //联系地址
+           $("#exampleInputaddress1").val("");
+          //分期金额
+          $("#month_money1").val("");
+          //每月还款
+          $("#stage_money1").val("");
+          //薪资收入
+          $("#salary_money1").val("");
+          //公司地址
+           $("#address1").val("");
+          //公司类型
+          $("#company_type1").val("");
+          //拒贷日期
+           $("#stages_or1").val("");
+          //拒贷金额
+           $("#stages_money1").val("");
+          //长期欠款
+           $("#long_owed1").val("");
+          //是否逾期
+          $("#arrears_or1").val("");
+          //逾期天数
+          $("#arrears_day1").val("");
+          //其他补充信息
+          $("#remarks1").val("");
+           $("#tijiao1").attr("disabled","true");
+
+     }
+
+
+      function formatyemian1() {
+          // //借款日期
+          // var exampleInputrepeatData = $("#exampleInputrepeatData1").val();
+          // //借款合同号
+          // var exampleInputrepeathetong = $("#exampleInputrepeathetong1").val();
+          // //借款期限
+          // var exampleInputrepeatqixian = $("#exampleInputrepeatqixian1").val();
+          // //借款金额
+          // var exampleInputrepeatmoney = $("#exampleInputrepeatmoney1").val();
+          // //联系电话
+          // var exampleInputTel = $("#exampleInputTel1").val();
+          // //借款用途
+          // var exampleInputrepeatpurpose = $("#exampleInputrepeatpurpose1").val();
+          // //借款类型
+          // var exampleInputtype = $("#exampleInputtype1").val();
+          // //联系地址
+          // var exampleInputaddress = $("#exampleInputaddress1").val();
+          // //是否在贷款
+          // var sfzdk = $("#sfzdk1").val();
+          // //是否失联
+          // var sfsl = $("#sfsl1").val();
+          // //是否又一次分期
+          // var sfyycfq = $("#sfyycfq1").val();
+          // //分期金额
+          // var month_money = $("#month_money1").val();
+          // //每月还款
+          // var stage_money = $("#stage_money1").val();
+          // //薪资收入
+          // var salary_money = $("#salary_money1").val();
+          // //公司地址
+          // var address = $("#address1").val();
+          // //公司类型
+          // var company_type = $("#company_type1").val();
+          // //初审拒绝
+          // var csjj = $("#csjj1").val();
+          // //拒贷日期
+          // var stages_or = $("#stages_or1").val();
+          // //拒贷金额
+          // var stages_money = $("#stages_money1").val();
+          // //长期欠款
+          // var long_owed = $("#long_owed1").val();
+          // //是否逾期
+          // var arrears_or = $("#arrears_or1").val();
+          // //诈骗
+          // var contact_or = $("#zp1").val();
+          // //是否延期
+          // var sfyq = $("#sfyq1").val();
+          // //以资抵债
+          // var yzdz = $("#yzdz1").val();
+          // //逾期天数
+          // var arrears_day = $("#arrears_day1").val();
+          // //其他补充信息
+          // var remarks = $("#remarks1").val();
+          if($("#exampleInputrepeatData1").val().length != 0 && $("#exampleInputrepeatData1").val()!=""
+            &&$("#month_money1").val().length != 0 && $("#month_money1").val()!=""
+
+            &&$("#exampleInputrepeatqixian1").val().length != 0 && $("#exampleInputrepeatqixian1").val()!=""
+            &&$("#exampleInputrepeatmoney1").val().length != 0 && $("#exampleInputrepeatmoney1").val()!=""
+            &&$("#stage_money1").val().length != 0 && $("#stage_money1").val()!=""
+
+            &&$("#salary_money1").val().length != 0 && $("#salary_money1").val()!=""
+
+            &&$("#stages_or1").val().length != 0 && $("#stages_or1").val()!=""
+
+            &&$("#stages_money1").val().length != 0 && $("#stages_money1").val()!=""
+
+            &&$("#long_owed1").val().length != 0 && $("#long_owed1").val()!=""
+
+            &&$("#arrears_or1").val().length != 0 && $("#arrears_or1").val()!=""
+            ){
+            $("#tijiao1").removeAttr("disabled");
+          }else{
+              $("#tijiao1").attr("disabled","true");
+          }
+
+
+
+
+      }
+
+
+    </script>
+</body>
+</html>

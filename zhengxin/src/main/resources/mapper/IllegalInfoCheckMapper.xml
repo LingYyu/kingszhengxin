@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.fbf.dao.IllegalInfoCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.newtouch.fbf.entity.IllegalInfoCheck" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="business_type" property="businessType" jdbcType="CHAR" />
+    <result column="report_code" property="reportCode" jdbcType="VARCHAR" />
+    <result column="driving_car_name" property="drivingCarName" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="violation_time" property="violationTime" jdbcType="TIMESTAMP" />
+    <result column="violation_reason" property="violationReason" jdbcType="VARCHAR" />
+    <result column="violation_bills" property="violationBills" jdbcType="DECIMAL" />
+    <result column="violation_address" property="violationAddress" jdbcType="VARCHAR" />
+    <result column="violation_place" property="violationPlace" jdbcType="VARCHAR" />
+    <result column="illegal_deduction" property="illegalDeduction" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="executive_branch" property="executiveBranch" jdbcType="VARCHAR" />
+    <result column="memory_time" property="memoryTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_type, report_code, driving_car_name, id_card, violation_time, violation_reason, 
+    violation_bills, violation_address, violation_place, illegal_deduction, mobile, executive_branch, 
+    memory_time, create_time, update_time, create_user, update_user, is_delete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.newtouch.fbf.entity.IllegalInfoCheckExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from illegal_info_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from illegal_info_check
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from illegal_info_check
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.newtouch.fbf.entity.IllegalInfoCheckExample" >
+    delete from illegal_info_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.fbf.entity.IllegalInfoCheck" >
+    insert into illegal_info_check (id, business_type, report_code, 
+      driving_car_name, id_card, violation_time, 
+      violation_reason, violation_bills, violation_address, 
+      violation_place, illegal_deduction, mobile, 
+      executive_branch, memory_time, create_time, 
+      update_time, create_user, update_user, 
+      is_delete)
+    values (#{id,jdbcType=CHAR}, #{businessType,jdbcType=CHAR}, #{reportCode,jdbcType=VARCHAR}, 
+      #{drivingCarName,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{violationTime,jdbcType=TIMESTAMP}, 
+      #{violationReason,jdbcType=VARCHAR}, #{violationBills,jdbcType=DECIMAL}, #{violationAddress,jdbcType=VARCHAR}, 
+      #{violationPlace,jdbcType=VARCHAR}, #{illegalDeduction,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{executiveBranch,jdbcType=VARCHAR}, #{memoryTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.fbf.entity.IllegalInfoCheck" >
+    insert into illegal_info_check
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="reportCode != null" >
+        report_code,
+      </if>
+      <if test="drivingCarName != null" >
+        driving_car_name,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="violationTime != null" >
+        violation_time,
+      </if>
+      <if test="violationReason != null" >
+        violation_reason,
+      </if>
+      <if test="violationBills != null" >
+        violation_bills,
+      </if>
+      <if test="violationAddress != null" >
+        violation_address,
+      </if>
+      <if test="violationPlace != null" >
+        violation_place,
+      </if>
+      <if test="illegalDeduction != null" >
+        illegal_deduction,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="executiveBranch != null" >
+        executive_branch,
+      </if>
+      <if test="memoryTime != null" >
+        memory_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="reportCode != null" >
+        #{reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingCarName != null" >
+        #{drivingCarName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="violationTime != null" >
+        #{violationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="violationReason != null" >
+        #{violationReason,jdbcType=VARCHAR},
+      </if>
+      <if test="violationBills != null" >
+        #{violationBills,jdbcType=DECIMAL},
+      </if>
+      <if test="violationAddress != null" >
+        #{violationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="violationPlace != null" >
+        #{violationPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalDeduction != null" >
+        #{illegalDeduction,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="executiveBranch != null" >
+        #{executiveBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="memoryTime != null" >
+        #{memoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.newtouch.fbf.entity.IllegalInfoCheckExample" resultType="java.lang.Integer" >
+    select count(*) from illegal_info_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update illegal_info_check
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=CHAR},
+      </if>
+      <if test="record.reportCode != null" >
+        report_code = #{record.reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drivingCarName != null" >
+        driving_car_name = #{record.drivingCarName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idCard != null" >
+        id_card = #{record.idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.violationTime != null" >
+        violation_time = #{record.violationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.violationReason != null" >
+        violation_reason = #{record.violationReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.violationBills != null" >
+        violation_bills = #{record.violationBills,jdbcType=DECIMAL},
+      </if>
+      <if test="record.violationAddress != null" >
+        violation_address = #{record.violationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.violationPlace != null" >
+        violation_place = #{record.violationPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illegalDeduction != null" >
+        illegal_deduction = #{record.illegalDeduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executiveBranch != null" >
+        executive_branch = #{record.executiveBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memoryTime != null" >
+        memory_time = #{record.memoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUser != null" >
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update illegal_info_check
+    set id = #{record.id,jdbcType=CHAR},
+      business_type = #{record.businessType,jdbcType=CHAR},
+      report_code = #{record.reportCode,jdbcType=VARCHAR},
+      driving_car_name = #{record.drivingCarName,jdbcType=VARCHAR},
+      id_card = #{record.idCard,jdbcType=VARCHAR},
+      violation_time = #{record.violationTime,jdbcType=TIMESTAMP},
+      violation_reason = #{record.violationReason,jdbcType=VARCHAR},
+      violation_bills = #{record.violationBills,jdbcType=DECIMAL},
+      violation_address = #{record.violationAddress,jdbcType=VARCHAR},
+      violation_place = #{record.violationPlace,jdbcType=VARCHAR},
+      illegal_deduction = #{record.illegalDeduction,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      executive_branch = #{record.executiveBranch,jdbcType=VARCHAR},
+      memory_time = #{record.memoryTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      update_user = #{record.updateUser,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.fbf.entity.IllegalInfoCheck" >
+    update illegal_info_check
+    <set >
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="reportCode != null" >
+        report_code = #{reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingCarName != null" >
+        driving_car_name = #{drivingCarName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="violationTime != null" >
+        violation_time = #{violationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="violationReason != null" >
+        violation_reason = #{violationReason,jdbcType=VARCHAR},
+      </if>
+      <if test="violationBills != null" >
+        violation_bills = #{violationBills,jdbcType=DECIMAL},
+      </if>
+      <if test="violationAddress != null" >
+        violation_address = #{violationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="violationPlace != null" >
+        violation_place = #{violationPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalDeduction != null" >
+        illegal_deduction = #{illegalDeduction,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="executiveBranch != null" >
+        executive_branch = #{executiveBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="memoryTime != null" >
+        memory_time = #{memoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.fbf.entity.IllegalInfoCheck" >
+    update illegal_info_check
+    set business_type = #{businessType,jdbcType=CHAR},
+      report_code = #{reportCode,jdbcType=VARCHAR},
+      driving_car_name = #{drivingCarName,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      violation_time = #{violationTime,jdbcType=TIMESTAMP},
+      violation_reason = #{violationReason,jdbcType=VARCHAR},
+      violation_bills = #{violationBills,jdbcType=DECIMAL},
+      violation_address = #{violationAddress,jdbcType=VARCHAR},
+      violation_place = #{violationPlace,jdbcType=VARCHAR},
+      illegal_deduction = #{illegalDeduction,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      executive_branch = #{executiveBranch,jdbcType=VARCHAR},
+      memory_time = #{memoryTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

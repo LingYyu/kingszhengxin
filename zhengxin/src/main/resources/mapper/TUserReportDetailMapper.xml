@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.fbf.dao.TUserReportDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.newtouch.fbf.entity.TUserReportDetail" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="business_type" property="businessType" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="report_code" property="reportCode" jdbcType="VARCHAR" />
+    <result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+    <result column="school_degree" property="schoolDegree" jdbcType="VARCHAR" />
+    <result column="school_startime" property="schoolStartime" jdbcType="TIMESTAMP" />
+    <result column="college" property="college" jdbcType="VARCHAR" />
+    <result column="student_number" property="studentNumber" jdbcType="VARCHAR" />
+    <result column="car_number" property="carNumber" jdbcType="VARCHAR" />
+    <result column="car_type" property="carType" jdbcType="VARCHAR" />
+    <result column="illegal_car_number" property="illegalCarNumber" jdbcType="VARCHAR" />
+    <result column="illegal_car_type" property="illegalCarType" jdbcType="VARCHAR" />
+    <result column="frame_number" property="frameNumber" jdbcType="VARCHAR" />
+    <result column="engine_number" property="engineNumber" jdbcType="VARCHAR" />
+    <result column="taobao_number" property="taobaoNumber" jdbcType="VARCHAR" />
+    <result column="taobao_pwd" property="taobaoPwd" jdbcType="VARCHAR" />
+    <result column="jingdong_number" property="jingdongNumber" jdbcType="VARCHAR" />
+    <result column="jingdong_pwd" property="jingdongPwd" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="is_active" property="isActive" jdbcType="BIT" />
+    <result column="report_id" property="reportId" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_type, name, id_card, report_code, bank_card, school_degree, school_startime, 
+    college, student_number, car_number, car_type, illegal_car_number, illegal_car_type, 
+    frame_number, engine_number, taobao_number, taobao_pwd, jingdong_number, jingdong_pwd, 
+    create_time, update_time, create_user, update_user, is_active, report_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.newtouch.fbf.entity.TUserReportDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_report_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_report_detail
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_user_report_detail
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.newtouch.fbf.entity.TUserReportDetailExample" >
+    delete from t_user_report_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.fbf.entity.TUserReportDetail" >
+    insert into t_user_report_detail (id, business_type, name, 
+      id_card, report_code, bank_card, 
+      school_degree, school_startime, college, 
+      student_number, car_number, car_type, 
+      illegal_car_number, illegal_car_type, frame_number, 
+      engine_number, taobao_number, taobao_pwd, 
+      jingdong_number, jingdong_pwd, create_time, 
+      update_time, create_user, update_user, 
+      is_active, report_id)
+    values (#{id,jdbcType=CHAR}, #{businessType,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, 
+      #{idCard,jdbcType=VARCHAR}, #{reportCode,jdbcType=VARCHAR}, #{bankCard,jdbcType=VARCHAR}, 
+      #{schoolDegree,jdbcType=VARCHAR}, #{schoolStartime,jdbcType=TIMESTAMP}, #{college,jdbcType=VARCHAR}, 
+      #{studentNumber,jdbcType=VARCHAR}, #{carNumber,jdbcType=VARCHAR}, #{carType,jdbcType=VARCHAR}, 
+      #{illegalCarNumber,jdbcType=VARCHAR}, #{illegalCarType,jdbcType=VARCHAR}, #{frameNumber,jdbcType=VARCHAR}, 
+      #{engineNumber,jdbcType=VARCHAR}, #{taobaoNumber,jdbcType=VARCHAR}, #{taobaoPwd,jdbcType=VARCHAR}, 
+      #{jingdongNumber,jdbcType=VARCHAR}, #{jingdongPwd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{isActive,jdbcType=BIT}, #{reportId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.fbf.entity.TUserReportDetail" >
+    insert into t_user_report_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="reportCode != null" >
+        report_code,
+      </if>
+      <if test="bankCard != null" >
+        bank_card,
+      </if>
+      <if test="schoolDegree != null" >
+        school_degree,
+      </if>
+      <if test="schoolStartime != null" >
+        school_startime,
+      </if>
+      <if test="college != null" >
+        college,
+      </if>
+      <if test="studentNumber != null" >
+        student_number,
+      </if>
+      <if test="carNumber != null" >
+        car_number,
+      </if>
+      <if test="carType != null" >
+        car_type,
+      </if>
+      <if test="illegalCarNumber != null" >
+        illegal_car_number,
+      </if>
+      <if test="illegalCarType != null" >
+        illegal_car_type,
+      </if>
+      <if test="frameNumber != null" >
+        frame_number,
+      </if>
+      <if test="engineNumber != null" >
+        engine_number,
+      </if>
+      <if test="taobaoNumber != null" >
+        taobao_number,
+      </if>
+      <if test="taobaoPwd != null" >
+        taobao_pwd,
+      </if>
+      <if test="jingdongNumber != null" >
+        jingdong_number,
+      </if>
+      <if test="jingdongPwd != null" >
+        jingdong_pwd,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="isActive != null" >
+        is_active,
+      </if>
+      <if test="reportId != null" >
+        report_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="reportCode != null" >
+        #{reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolDegree != null" >
+        #{schoolDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolStartime != null" >
+        #{schoolStartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="college != null" >
+        #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNumber != null" >
+        #{studentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="carNumber != null" >
+        #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="carType != null" >
+        #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalCarNumber != null" >
+        #{illegalCarNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalCarType != null" >
+        #{illegalCarType,jdbcType=VARCHAR},
+      </if>
+      <if test="frameNumber != null" >
+        #{frameNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="engineNumber != null" >
+        #{engineNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taobaoNumber != null" >
+        #{taobaoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taobaoPwd != null" >
+        #{taobaoPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="jingdongNumber != null" >
+        #{jingdongNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jingdongPwd != null" >
+        #{jingdongPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isActive != null" >
+        #{isActive,jdbcType=BIT},
+      </if>
+      <if test="reportId != null" >
+        #{reportId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.newtouch.fbf.entity.TUserReportDetailExample" resultType="java.lang.Integer" >
+    select count(*) from t_user_report_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_user_report_detail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=CHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idCard != null" >
+        id_card = #{record.idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportCode != null" >
+        report_code = #{record.reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCard != null" >
+        bank_card = #{record.bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolDegree != null" >
+        school_degree = #{record.schoolDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolStartime != null" >
+        school_startime = #{record.schoolStartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.college != null" >
+        college = #{record.college,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentNumber != null" >
+        student_number = #{record.studentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carNumber != null" >
+        car_number = #{record.carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carType != null" >
+        car_type = #{record.carType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illegalCarNumber != null" >
+        illegal_car_number = #{record.illegalCarNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illegalCarType != null" >
+        illegal_car_type = #{record.illegalCarType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frameNumber != null" >
+        frame_number = #{record.frameNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.engineNumber != null" >
+        engine_number = #{record.engineNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taobaoNumber != null" >
+        taobao_number = #{record.taobaoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taobaoPwd != null" >
+        taobao_pwd = #{record.taobaoPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jingdongNumber != null" >
+        jingdong_number = #{record.jingdongNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jingdongPwd != null" >
+        jingdong_pwd = #{record.jingdongPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUser != null" >
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isActive != null" >
+        is_active = #{record.isActive,jdbcType=BIT},
+      </if>
+      <if test="record.reportId != null" >
+        report_id = #{record.reportId,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user_report_detail
+    set id = #{record.id,jdbcType=CHAR},
+      business_type = #{record.businessType,jdbcType=CHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      id_card = #{record.idCard,jdbcType=VARCHAR},
+      report_code = #{record.reportCode,jdbcType=VARCHAR},
+      bank_card = #{record.bankCard,jdbcType=VARCHAR},
+      school_degree = #{record.schoolDegree,jdbcType=VARCHAR},
+      school_startime = #{record.schoolStartime,jdbcType=TIMESTAMP},
+      college = #{record.college,jdbcType=VARCHAR},
+      student_number = #{record.studentNumber,jdbcType=VARCHAR},
+      car_number = #{record.carNumber,jdbcType=VARCHAR},
+      car_type = #{record.carType,jdbcType=VARCHAR},
+      illegal_car_number = #{record.illegalCarNumber,jdbcType=VARCHAR},
+      illegal_car_type = #{record.illegalCarType,jdbcType=VARCHAR},
+      frame_number = #{record.frameNumber,jdbcType=VARCHAR},
+      engine_number = #{record.engineNumber,jdbcType=VARCHAR},
+      taobao_number = #{record.taobaoNumber,jdbcType=VARCHAR},
+      taobao_pwd = #{record.taobaoPwd,jdbcType=VARCHAR},
+      jingdong_number = #{record.jingdongNumber,jdbcType=VARCHAR},
+      jingdong_pwd = #{record.jingdongPwd,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      update_user = #{record.updateUser,jdbcType=VARCHAR},
+      is_active = #{record.isActive,jdbcType=BIT},
+      report_id = #{record.reportId,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.fbf.entity.TUserReportDetail" >
+    update t_user_report_detail
+    <set >
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="reportCode != null" >
+        report_code = #{reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        bank_card = #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolDegree != null" >
+        school_degree = #{schoolDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolStartime != null" >
+        school_startime = #{schoolStartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="college != null" >
+        college = #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNumber != null" >
+        student_number = #{studentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="carNumber != null" >
+        car_number = #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="carType != null" >
+        car_type = #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalCarNumber != null" >
+        illegal_car_number = #{illegalCarNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalCarType != null" >
+        illegal_car_type = #{illegalCarType,jdbcType=VARCHAR},
+      </if>
+      <if test="frameNumber != null" >
+        frame_number = #{frameNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="engineNumber != null" >
+        engine_number = #{engineNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taobaoNumber != null" >
+        taobao_number = #{taobaoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taobaoPwd != null" >
+        taobao_pwd = #{taobaoPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="jingdongNumber != null" >
+        jingdong_number = #{jingdongNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jingdongPwd != null" >
+        jingdong_pwd = #{jingdongPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isActive != null" >
+        is_active = #{isActive,jdbcType=BIT},
+      </if>
+      <if test="reportId != null" >
+        report_id = #{reportId,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.fbf.entity.TUserReportDetail" >
+    update t_user_report_detail
+    set business_type = #{businessType,jdbcType=CHAR},
+      name = #{name,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      report_code = #{reportCode,jdbcType=VARCHAR},
+      bank_card = #{bankCard,jdbcType=VARCHAR},
+      school_degree = #{schoolDegree,jdbcType=VARCHAR},
+      school_startime = #{schoolStartime,jdbcType=TIMESTAMP},
+      college = #{college,jdbcType=VARCHAR},
+      student_number = #{studentNumber,jdbcType=VARCHAR},
+      car_number = #{carNumber,jdbcType=VARCHAR},
+      car_type = #{carType,jdbcType=VARCHAR},
+      illegal_car_number = #{illegalCarNumber,jdbcType=VARCHAR},
+      illegal_car_type = #{illegalCarType,jdbcType=VARCHAR},
+      frame_number = #{frameNumber,jdbcType=VARCHAR},
+      engine_number = #{engineNumber,jdbcType=VARCHAR},
+      taobao_number = #{taobaoNumber,jdbcType=VARCHAR},
+      taobao_pwd = #{taobaoPwd,jdbcType=VARCHAR},
+      jingdong_number = #{jingdongNumber,jdbcType=VARCHAR},
+      jingdong_pwd = #{jingdongPwd,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      is_active = #{isActive,jdbcType=BIT},
+      report_id = #{reportId,jdbcType=CHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

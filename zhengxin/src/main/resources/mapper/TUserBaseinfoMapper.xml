@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.fbf.dao.TUserBaseinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.newtouch.fbf.entity.TUserBaseinfo" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="CHAR" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="company_phone" property="companyPhone" jdbcType="VARCHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="card_pic_url1" property="cardPicUrl1" jdbcType="VARCHAR" />
+    <result column="card_pic_url2" property="cardPicUrl2" jdbcType="VARCHAR" />
+    <result column="person_pic_url" property="personPicUrl" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="home_address" property="homeAddress" jdbcType="VARCHAR" />
+    <result column="address_info_url" property="addressInfoUrl" jdbcType="VARCHAR" />
+    <result column="job_info_url" property="jobInfoUrl" jdbcType="VARCHAR" />
+    <result column="finance_info_url" property="financeInfoUrl" jdbcType="VARCHAR" />
+    <result column="business_type" property="businessType" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_name, id_card, telephone, company_address, company_phone, user_email, card_pic_url1, 
+    card_pic_url2, person_pic_url, company_name, position, home_address, address_info_url, 
+    job_info_url, finance_info_url, business_type, create_time, create_user, update_time, 
+    update_user
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.newtouch.fbf.entity.TUserBaseinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_baseinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_baseinfo
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_user_baseinfo
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.newtouch.fbf.entity.TUserBaseinfoExample" >
+    delete from t_user_baseinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.fbf.entity.TUserBaseinfo" >
+    insert into t_user_baseinfo (id, user_name, id_card, 
+      telephone, company_address, company_phone, 
+      user_email, card_pic_url1, card_pic_url2, 
+      person_pic_url, company_name, position, 
+      home_address, address_info_url, job_info_url, 
+      finance_info_url, business_type, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{id,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=CHAR}, #{companyAddress,jdbcType=VARCHAR}, #{companyPhone,jdbcType=VARCHAR}, 
+      #{userEmail,jdbcType=VARCHAR}, #{cardPicUrl1,jdbcType=VARCHAR}, #{cardPicUrl2,jdbcType=VARCHAR}, 
+      #{personPicUrl,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{homeAddress,jdbcType=VARCHAR}, #{addressInfoUrl,jdbcType=VARCHAR}, #{jobInfoUrl,jdbcType=VARCHAR}, 
+      #{financeInfoUrl,jdbcType=VARCHAR}, #{businessType,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.fbf.entity.TUserBaseinfo" >
+    insert into t_user_baseinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="companyAddress != null" >
+        company_address,
+      </if>
+      <if test="companyPhone != null" >
+        company_phone,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="cardPicUrl1 != null" >
+        card_pic_url1,
+      </if>
+      <if test="cardPicUrl2 != null" >
+        card_pic_url2,
+      </if>
+      <if test="personPicUrl != null" >
+        person_pic_url,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="homeAddress != null" >
+        home_address,
+      </if>
+      <if test="addressInfoUrl != null" >
+        address_info_url,
+      </if>
+      <if test="jobInfoUrl != null" >
+        job_info_url,
+      </if>
+      <if test="financeInfoUrl != null" >
+        finance_info_url,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=CHAR},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null" >
+        #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cardPicUrl1 != null" >
+        #{cardPicUrl1,jdbcType=VARCHAR},
+      </if>
+      <if test="cardPicUrl2 != null" >
+        #{cardPicUrl2,jdbcType=VARCHAR},
+      </if>
+      <if test="personPicUrl != null" >
+        #{personPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null" >
+        #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="addressInfoUrl != null" >
+        #{addressInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="jobInfoUrl != null" >
+        #{jobInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="financeInfoUrl != null" >
+        #{financeInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.newtouch.fbf.entity.TUserBaseinfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_user_baseinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_user_baseinfo
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idCard != null" >
+        id_card = #{record.idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=CHAR},
+      </if>
+      <if test="record.companyAddress != null" >
+        company_address = #{record.companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyPhone != null" >
+        company_phone = #{record.companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userEmail != null" >
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardPicUrl1 != null" >
+        card_pic_url1 = #{record.cardPicUrl1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardPicUrl2 != null" >
+        card_pic_url2 = #{record.cardPicUrl2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personPicUrl != null" >
+        person_pic_url = #{record.personPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null" >
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeAddress != null" >
+        home_address = #{record.homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressInfoUrl != null" >
+        address_info_url = #{record.addressInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobInfoUrl != null" >
+        job_info_url = #{record.jobInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.financeInfoUrl != null" >
+        finance_info_url = #{record.financeInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null" >
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user_baseinfo
+    set id = #{record.id,jdbcType=CHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      id_card = #{record.idCard,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=CHAR},
+      company_address = #{record.companyAddress,jdbcType=VARCHAR},
+      company_phone = #{record.companyPhone,jdbcType=VARCHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      card_pic_url1 = #{record.cardPicUrl1,jdbcType=VARCHAR},
+      card_pic_url2 = #{record.cardPicUrl2,jdbcType=VARCHAR},
+      person_pic_url = #{record.personPicUrl,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      position = #{record.position,jdbcType=VARCHAR},
+      home_address = #{record.homeAddress,jdbcType=VARCHAR},
+      address_info_url = #{record.addressInfoUrl,jdbcType=VARCHAR},
+      job_info_url = #{record.jobInfoUrl,jdbcType=VARCHAR},
+      finance_info_url = #{record.financeInfoUrl,jdbcType=VARCHAR},
+      business_type = #{record.businessType,jdbcType=CHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.fbf.entity.TUserBaseinfo" >
+    update t_user_baseinfo
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=CHAR},
+      </if>
+      <if test="companyAddress != null" >
+        company_address = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null" >
+        company_phone = #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cardPicUrl1 != null" >
+        card_pic_url1 = #{cardPicUrl1,jdbcType=VARCHAR},
+      </if>
+      <if test="cardPicUrl2 != null" >
+        card_pic_url2 = #{cardPicUrl2,jdbcType=VARCHAR},
+      </if>
+      <if test="personPicUrl != null" >
+        person_pic_url = #{personPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null" >
+        home_address = #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="addressInfoUrl != null" >
+        address_info_url = #{addressInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="jobInfoUrl != null" >
+        job_info_url = #{jobInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="financeInfoUrl != null" >
+        finance_info_url = #{financeInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.fbf.entity.TUserBaseinfo" >
+    update t_user_baseinfo
+    set user_name = #{userName,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=CHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_phone = #{companyPhone,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      card_pic_url1 = #{cardPicUrl1,jdbcType=VARCHAR},
+      card_pic_url2 = #{cardPicUrl2,jdbcType=VARCHAR},
+      person_pic_url = #{personPicUrl,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      home_address = #{homeAddress,jdbcType=VARCHAR},
+      address_info_url = #{addressInfoUrl,jdbcType=VARCHAR},
+      job_info_url = #{jobInfoUrl,jdbcType=VARCHAR},
+      finance_info_url = #{financeInfoUrl,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+   
+  
+  <!-- 根据id_card查找用户资料 -->
+  <select id="selectByIdCard" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_user_baseinfo
+    where id_card = #{idCard,jdbcType=CHAR}
+  </select>
+  
+  
+  
+</mapper>

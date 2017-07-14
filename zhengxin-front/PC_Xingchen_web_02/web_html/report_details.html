@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <title>kings征信-用户列表征信报告详情</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../assets/js/ie-emulation-modes-warning.js" type="text/javascript"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--my style-->
+    <link href="../dist/css/web_style.css" rel="stylesheet" type="text/css" />
+    <!-- 打印时隐藏不需要的内容 -->
+    <style type="text/css" media=print>
+    #top {
+        display: none;
+    }
+    
+    .btn_div {
+        display: none;
+    }
+    
+    .col-sm-3 .col-md-2 {
+        display: none;
+    }
+    </style>
+</head>
+
+<body onload="report_details()">
+    <nav class="navbar navbar-fixed-top navbar-credit">
+        <div class="container" id="top">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="logo_a" href="#">Project name</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav nav_ul">
+                    <li><a href="creatUser.html">新建用户</a></li>
+                    <li class="active"><a href="user.html">用户列表</a></li>
+                    <li><a href="history.html">查询历史</a></li>
+                    <li><a href="account.html">账户信息</a></li>
+                </ul>
+                <div class="sigin_out"><a href="singin.html">退出</a></div>
+            </div>
+            <!-- /.nav-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <!-- /.navbar -->
+    <div class="container container-fluid">
+        <div class="row bread_top">
+            <div class="pull-left">
+                <ol class="breadcrumb">
+                    <li><a href="user.html">查询</a></li>
+                    <li><a href="#" onclick="report()"><span id="user_username"></span>
+                        <span id="user_idcard"></span></a></li>
+                    <li class="active">征信报告</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-md-2">
+                <div class="btn_div">
+                    <a href="##" class="btn btn-block btn-lg btn-credit" id="btnPrint" onclick=preview(1)>打印</a>
+                    <a href="##" class="btn btn-block btn-lg btn-credit">
+                        <div onclick="download()">下载</div>
+                    </a>
+                </div>
+                <ul class="infor_ul">
+                   <li id="href1"><a href="#top1" class="active">身份证核查</a></li>
+                    <li id="href2"><a href="#top2">通讯信息核查</a></li>
+                    <li id="href3"><a href="#top3">银行卡信息</a></li>
+                    <li id="href4"><a href="#top4">学历核查</a></li>
+                    
+                    <li id="href5"><a href="#top5">个人工商法人信息</a></li>
+                    <li id="href6"><a href="#top6">贷款信息查询</a></li>
+                    <li id="href7"><a href="#top7">行驶证查询 </a></li>
+                    <li id="href8"><a href="#top8">违章查询</a></li>
+                    <li id="href9"><a href="#top9">飞行情况核查</a></li>
+                    <li id="href10"><a href="#top10">互联网信息核查</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-md-10">
+                <!--startprint1-->
+                <div class="table-responsive">
+                    <table class="table table-bordered" style="text-align: center;">
+                        <tr>
+                            <td colspan="4" id="top1">Kings个人征信报告</td>
+                        </tr>
+                        <tr>
+                            <!-- 从上个页面获取报告编码 -->
+                            <td colspan="4">报告编号:<span id="reportcode"></span> &nbsp;&nbsp; 发布时间：
+                                <span id="publish_time"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">基本信息</td>
+                        </tr>
+                        <tr>
+                            <td>Kings评分</td>
+                            <td rowspan="7" id="card_pic_url1">
+                                <img id="idImg" width="250px" height="270px" src="../dist/images/images_004.jpg" />
+                            </td>
+                            <td>姓名</td>
+                            <td id="name"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" id="mark">666</td>
+                            <td>年龄</td>
+                            <td id="age"></td>
+                        </tr>
+                        <tr>
+                            <td>性别</td>
+                            <td id="sex"></td>
+                        </tr>
+                        <tr>
+                            <td>身份证号</td>
+                            <td id="id_card"></td>
+                        </tr>
+                        <tr>
+                            <td>星辰贷前建议</td>
+                            <td>手机号</td>
+                            <td id="mobile"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" id="suggest"></td>
+                            <td>学历</td>
+                            <td id="education"></td>
+                        </tr>
+                        <tr>
+                            <td>贷款类型</td>
+                            <td id="borrow_type"></td>
+                        </tr>
+                        <tr>
+                            <td>身份验证核查</td>
+                            <td>认证结果</td>
+                            <td colspan="2">一致</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" id="top2">通讯信息核查</td>
+                            <td>手机在网时长</td>
+                            <td colspan="2">7年</td>
+                        </tr>
+                        <tr>
+                            <td>手机实名认证</td>
+                            <td colspan="2">一致</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" id="top3">银行卡信息</td>
+                            <td>银行卡验证</td>
+                            <td colspan="2">一致</td>
+                        </tr>
+                        <tr>
+                            <td>活跃卡反馈</td>
+                            <td colspan="2">是</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="16" id="top4">学历信息核查</td>
+                            <td rowspan="9">学历验证</td>
+                            <td>毕业学校</td>
+                            <td id="college"></td>
+                        </tr>
+                        <tr>
+                            <td>学历层次</td>
+                            <td id="college_level"></td>
+                        </tr>
+                        <tr>
+                            <td>入学时间</td>
+                            <td id="start_time"></td>
+                        </tr>
+                        <tr>
+                            <td>专业</td>
+                            <td id="major"></td>
+                        </tr>
+                        <tr>
+                            <td>毕业时间</td>
+                            <td id="graduation_time">2014年7月</td>
+                        </tr>
+                        <tr>
+                            <td>毕业结论</td>
+                            <td id="graduation_con"></td>
+                        </tr>
+                        <tr>
+                            <td>学历类别</td>
+                            <td id="degree_category">全日制本科</td>
+                        </tr>
+                        <tr>
+                            <td>状态</td>
+                            <td id="status">查询成功</td>
+                        </tr>
+                        <tr>
+                            <td>描述</td>
+                            <td id="description"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="7">学籍验证
+                                <br/><span>（输入项选"无"则不显示)</span></td>
+                            <td>学院</td>
+                            <td>一致</td>
+                        </tr>
+                        <tr>
+                            <td>学院级别</td>
+                            <td>一致</td>
+                        </tr>
+                        <tr>
+                            <td>毕业时间</td>
+                            <td id="graduationTime">2017年7月</td>
+                        </tr>
+                        <tr>
+                            <td>入学时间</td>
+                            <td>一致</td>
+                        </tr>
+                        <tr>
+                            <td>状态</td>
+                            <td>查询成功</td>
+                        </tr>
+                        <tr>
+                            <td>学籍</td>
+                            <td>一致</td>
+                        </tr>
+                        <tr>
+                            <td>学历类别</td>
+                            <td>一致</td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered" style="text-align: center;display: none;" id="legal_person_check">
+                        <tr>
+                            <td rowspan="13" id="top5">个人工商法人信息核查</td>
+                            <td>企业名称</td>
+                            <td id="enterprise_name"></td>
+                            <td>法人</td>
+                            <td id="legal_person"></td>
+                        </tr>
+                        <tr>
+                            <td>注册资本</td>
+                            <td id="registered_capital">100万人发币</td>
+                            <td>开业日期</td>
+                            <td id="opening_date">2013年11月</td>
+                        </tr>
+                        <tr>
+                            <td>经营期限</td>
+                            <td id="operating_period">外贸，批发</td>
+                            <td>登记机关</td>
+                            <td id="regist_authority">上海市工商行政管理局 </td>
+                        </tr>
+                        <tr>
+                            <td>企业股东及出资信息</td>
+                            <td colspan="3" id="shareholders_info">王大锤出资50万 李二狗出资25万 小八出资25万 </td>
+                        </tr>
+                        <tr>
+                            <td>企业主要管理人员及职务</td>
+                            <td colspan="3" id="enterprise_position">王大锤/总裁 小八/副总裁 </td>
+                        </tr>
+                        <tr>
+                            <td>企业主要管理人员是否失信</td>
+                            <td colspan="3" id="enterprise_dishonesty">是</td>
+                        </tr>
+                        <tr>
+                            <td>被执行人姓名</td>
+                            <td id="executed_name">王大锤</td>
+                            <td>失信人类型</td>
+                            <td id="dishonesty_type">逾期还款</td>
+                        </tr>
+                        <tr>
+                            <td>性别</td>
+                            <td id="gender">男</td>
+                            <td>年龄</td>
+                            <td id="dishonesty_age">38</td>
+                        </tr>
+                        <tr>
+                            <td>身份证号</td>
+                            <td id="id_card3">320101199201012211</td>
+                            <td>身份证原始签发地</td>
+                            <td id="idcard_address">河南洛阳 </td>
+                        </tr>
+                        <tr>
+                            <td>立案时间</td>
+                            <td id="filing_time">2016/1/1</td>
+                            <td>案件状态</td>
+                            <td id="case_status">执行中</td>
+                        </tr>
+                        <tr>
+                            <td>执行法院/省份</td>
+                            <td id="court_execution">山东省青岛XX法院</td>
+                            <td>执行标的</td>
+                            <td id="executive_subject">35万</td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered" style="text-align: center;display: none;" id="loan_info_check">
+                        <tr>
+                            <td rowspan="5" id="top6">贷款信息查询</td>
+                            <td>是否在其他平台同时借款</td>
+                            <td id="other_loans">是</td>
+                            <td>借款类型</td>
+                            <td id="loan_type">信用贷款 </td>
+                        </tr>
+                        <tr>
+                            <td>借款日期</td>
+                            <td id="loan_date">2015/10/30</td>
+                            <td>借款金额</td>
+                            <td id="loan_amount">10万</td>
+                        </tr>
+                        <tr>
+                            <td>借款用途</td>
+                            <td id="using_loan">装修</td>
+                            <td>借款期限</td>
+                            <td id="loan_deadline">3个月</td>
+                        </tr>
+                        <tr>
+                            <td>联系电话</td>
+                            <td id="mobile2">13813813138</td>
+                            <td>联系地址</td>
+                            <td id="address2">青岛市大鸟村大鸟路大鸟小区</td>
+                        </tr>
+                        <tr>
+                            <td>是否是网贷黑名单</td>
+                            <td colspan="3" id="loan_blacklist">是</td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered" style="text-align: center;display: none;" id="driving_license_check">
+                        <tr>
+                            <td rowspan="7" id="top7">行驶证查询</td>
+                            <td>车牌号</td>
+                            <td id="driving_car_no"></td>
+                            <td>品牌</td>
+                            <td id="driving_car_type"></td>
+                        </tr>
+                        <tr>
+                            <td>机动车所有人</td>
+                            <td id="driving_car_name"></td>
+                            <td>车主身份证号</td>
+                            <td id="id_card1">320101199201012211</td>
+                        </tr>
+                        <tr>
+                            <td>机动车状态</td>
+                            <td id="driving_car_status">违法未处理</td>
+                            <td>使用性质</td>
+                            <td id="use_property">私人生活用车 </td>
+                        </tr>
+                        <tr>
+                            <td>车身颜色</td>
+                            <td id="driving_car_color">白色</td>
+                            <td>车辆保险到期日期</td>
+                            <td id="maturity_date">2016/8/30 </td>
+                        </tr>
+                        <tr>
+                            <td>发动机号</td>
+                            <td id="dengine_no">C190C8008</td>
+                            <td>地址</td>
+                            <td id="address1">青岛市大鸟村大鸟路大鸟小区</td>
+                        </tr>
+                        <tr>
+                            <td>发证日期</td>
+                            <td id="issue_date">2014/8/20</td>
+                            <td>初次登记日期</td>
+                            <td id="initial_regist_date">2014/7/1</td>
+                        </tr>
+                        <tr>
+                            <td>车辆识别代号</td>
+                            <td colspan="3" id="dcar_frame_no">LSV235E789K052</td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered" style="text-align: center;display: none;" id="illegal_info_check">
+                        <tr>
+                            <td rowspan="4" id="top8">违章查询</td>
+                            <td>违章时间</td>
+                            <td id="violation_time">2015/9/30</td>
+                            <td>违章地点</td>
+                            <td id="violation_place">青岛市大鸟村</td>
+                        </tr>
+                        <tr>
+                            <td>违章原因</td>
+                            <td id="violation_reason">闯红灯</td>
+                            <td>违章扣分</td>
+                            <td id="illegal_deduction">6分</td>
+                        </tr>
+                        <tr>
+                            <td>违章罚款金额</td>
+                            <td id="violation_bills">300元</td>
+                            <td>联系电话</td>
+                            <td id="mobile5">13813813138</td>
+                        </tr>
+                        <tr>
+                            <td>违章处理地址</td>
+                            <td id="violation_address">大鸟村糊涂路</td>
+                            <td>执行部门</td>
+                            <td id="executive_branch">青岛市公安局崂山分局 </td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered" style="text-align: center;display: none;" id="flight_info_check">
+                        <tr>
+                            <td rowspan="4" id="top9">飞行情况核查</td>
+                            <td rowspan="4">个人飞行信息查询：</td>
+                            <td>商务舱/头等舱次数</td>
+                            <td id="first_class">10次</td>
+                            <td>经济舱次数</td>
+                            <td id="economy_class">7次</td>
+                        </tr>
+                        <tr>
+                            <td>飞行次数</td>
+                            <td id="flight_times">17次</td>
+                            <td>频繁乘机到达城市</td>
+                            <td id="frequent_reach_city">上海5次，北京5次</td>
+                        </tr>
+                        <tr>
+                            <td>最后抵达城市</td>
+                            <td id="finally_arrived">上海</td>
+                            <td>平均票价</td>
+                            <td id="average_fare">2000</td>
+                        </tr>
+                        <tr>
+                            <td>1年中飞行次数</td>
+                            <td id="year_fight_times">25</td>
+                            <td>飞行总里程</td>
+                            <td id="total_flight">12000公里</td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered" style="text-align: center;display: none;" id="internetmessage">
+                        <tr>
+                            <td rowspan="49" id="top10">互联网信息核查</td>
+                            <td colspan="3">商品消费评估</td>
+                        </tr>
+                        <tr>
+                            <td>近一年持续消费情况</td>
+                            <td colspan="2">近六个月无消费，近一年有消费</td>
+                        </tr>
+                        <tr>
+                            <td>近一年内最近消费距今</td>
+                            <td colspan="2">6到12个月</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>近三个月</td>
+                            <td>近一年 </td>
+                        </tr>
+                        <tr>
+                            <td>消费次数总和：</td>
+                            <td>2次</td>
+                            <td>2次</td>
+                        </tr>
+                        <tr>
+                            <td>消费金额总和：</td>
+                            <td>5000元 </td>
+                            <td>5000元 </td>
+                        </tr>
+                        <tr>
+                            <td>有价消费类数：</td>
+                            <td>2类</td>
+                            <td>2类</td>
+                        </tr>
+                        <tr>
+                            <td>浏览商品类数：</td>
+                            <td>2类</td>
+                            <td>2类</td>
+                        </tr>
+                        <tr>
+                            <td>浏览次数总和：</td>
+                            <td>2次</td>
+                            <td>2次</td>
+                        </tr>
+                        <tr>
+                            <td>最大单类消费次数：</td>
+                            <td>2次</td>
+                            <td>2次</td>
+                        </tr>
+                        <tr>
+                            <td>最大单类消费总额：</td>
+                            <td>5000元</td>
+                            <td>5000元</td>
+                        </tr>
+                        <tr>
+                            <td>最大单类消费类别：</td>
+                            <td>家用电器类 </td>
+                            <td>家用电器类 </td>
+                        </tr>
+                        <tr>
+                            <td>日用百货类总消费次数：</td>
+                            <td>2次</td>
+                            <td>2次</td>
+                        </tr>
+                        <tr>
+                            <td>日用百货类总消费金额：</td>
+                            <td>500元</td>
+                            <td>500元</td>
+                        </tr>
+                        <tr>
+                            <td>家用电器类总消费次数：</td>
+                            <td>2次</td>
+                            <td>2次</td>
+                        </tr>
+                        <tr>
+                            <td>家用电器类总消费金额：</td>
+                            <td>5000元</td>
+                            <td>5000元</td>
+                        </tr>
+                        <tr>
+                            <td>母婴用品类总消费次数：</td>
+                            <td>2次</td>
+                            <td>2次</td>
+                        </tr>
+                        <tr>
+                            <td>母婴用品类总消费金额：</td>
+                            <td>1000元</td>
+                            <td>1000元</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">手机上网浏览次数</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>近三个月 </td>
+                            <td>近一年 </td>
+                        </tr>
+                        <tr>
+                            <td>所有类别浏览天数总和：</td>
+                            <td>12天 </td>
+                            <td>13天 </td>
+                        </tr>
+                        <tr>
+                            <td>最大单类浏览天数占比：</td>
+                            <td>41.67% </td>
+                            <td>38.46% </td>
+                        </tr>
+                        <tr>
+                            <td>最大单类浏览天数：</td>
+                            <td>5天</td>
+                            <td>5天</td>
+                        </tr>
+                        <tr>
+                            <td>最大浏览天数类别：</td>
+                            <td>美食类</td>
+                            <td>美食类 </td>
+                        </tr>
+                        <tr>
+                            <td>浏览类别总数：</td>
+                            <td>3类</td>
+                            <td>4类</td>
+                        </tr>
+                        <tr>
+                            <td>财经类总浏览天数：</td>
+                            <td>3天 </td>
+                            <td>3天 </td>
+                        </tr>
+                        <tr>
+                            <td>文学艺术类总浏览天数：</td>
+                            <td>4天 </td>
+                            <td>4天 </td>
+                        </tr>
+                        <tr>
+                            <td>母婴育儿类总浏览天数：</td>
+                            <td>0天</td>
+                            <td>1天 </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">电商交易明细</td>
+                        </tr>
+                        <tr>
+                            <td>更新时间</td>
+                            <td colspan="2">2016.05.17 10：10：58</td>
+                        </tr>
+                        <tr>
+                            <td>交易时间</td>
+                            <td colspan="2">2016.05.17 10：10：58</td>
+                        </tr>
+                        <tr>
+                            <td>交易总额</td>
+                            <td colspan="2">20天</td>
+                        </tr>
+                        <tr>
+                            <td>收货地址</td>
+                            <td colspan="2">上海市陆家嘴</td>
+                        </tr>
+                        <tr>
+                            <td>收货人</td>
+                            <td colspan="2" id="shouhuoren">王大锤</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="padding: 0;">
+                                <table class="table_td">
+                                    <tr>
+                                        <td>付款方式</td>
+                                        <td>支付宝</td>
+                                        <td>商品单价</td>
+                                        <td>14元</td>
+                                    </tr>
+                                    <tr>
+                                        <td>商品数量</td>
+                                        <td>1</td>
+                                        <td>商品名称</td>
+                                        <td>手办</td>
+                                    </tr>
+                                    <tr>
+                                        <td>快递方式</td>
+                                        <td>**快递</td>
+                                        <td>快递费用</td>
+                                        <td>6元</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">电商地址信息</td>
+                        </tr>
+                        <tr>
+                            <td>更新时间</td>
+                            <td colspan="2">2016.05.17 10：10：58</td>
+                        </tr>
+                        <tr>
+                            <td>收货地址</td>
+                            <td colspan="2">上海市江宁路1号</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="padding: 0;">
+                                <table class="table_td">
+                                    <tr>
+                                        <td>收货省份</td>
+                                        <td>上海</td>
+                                        <td>收货城市</td>
+                                        <td>静安区</td>
+                                    </tr>
+                                    <tr>
+                                        <td>收货人</td>
+                                        <td id="shouhuoren1">小美</td>
+                                        <td>收货电话</td>
+                                        <td>13813813138</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">电商账户信息</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="padding: 0;">
+                                <table class="table_td">
+                                    <tr>
+                                        <td>数据来源</td>
+                                        <td>XX网</td>
+                                        <td>更新时间</td>
+                                        <td>2016.05.17 10：10：58</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>地址</td>
+                            <td colspan="2">上海市陆家嘴</td>
+                        </tr>
+                        <tr>
+                            <td>账户手机号</td>
+                            <td colspan="2" id="phoneNumber">13513513135</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="padding: 0;">
+                                <table class="table_td">
+                                    <tr>
+                                        <td>安全级别</td>
+                                        <td>X级</td>
+                                        <td>会员级别</td>
+                                        <td>N级</td>
+                                    </tr>
+                                    <tr>
+                                        <td>是否实名</td>
+                                        <td>是</td>
+                                        <td>账户昵称</td>
+                                        <td id="zhanghunicheng">大锤哥</td>
+                                    </tr>
+                                    <tr>
+                                        <td>真实姓名</td>
+                                        <td id="zhenshiname">王大锤</td>
+                                        <td>注册时间</td>
+                                        <td>2016.05.17 10：10：58</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--endprint1-->
+            </div>
+        </div>
+        <div class="toolbar">
+            <a href="#top" class="toolbar-item" target="_self"></a>
+        </div>
+        <div class="modal fade" id="signin" tabindex="-1" role="dialog" aria-labelledby="myModalall_infor" data-backdrop="static">
+            <div class="modal-dialog" role="document" style="width: 300px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">下载情况</h4>
+                    </div>
+                    <div class="modal-body" style="text-align: center; font-size: 18px;" id="myModalContent">
+                        报告已下载至E盘，请去E盘查看
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-credit btn-block" data-dismiss="modal" aria-label="Close">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jspdf -->
+    <script type="text/javascript" src="../dist/js/jquery-2.1.1.js"></script>
+    <!-- <script src="../dist/js/jquery.min.1.11.2.js" type="text/javascript"></script> -->
+    <script src="../dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- script type="text/javascript" src="../dist/js/login/jspdf/jspdf.debug.js">
+        </script>
+        <script type="text/javascript" src="../dist/js/login/jspdf/html2canvas.js"></script>
+        <script type="text/javascript" src="../dist/js/login/jspdf/addimage.js"></script> -->
+    <script type="text/javascript" src="../dist/js/login/report_details.js"></script>
+</body>
+
+</html>

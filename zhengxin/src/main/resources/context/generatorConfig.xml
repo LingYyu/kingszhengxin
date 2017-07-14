@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE generatorConfiguration
+    PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+  <generatorConfiguration>
+      <!--数据库驱动  如果版本不同别忘记换-->
+      <classPathEntry    location="D:\maven-repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar"/>
+      <context id="DB2Tables" targetRuntime="MyBatis3">
+          <commentGenerator>
+             <property name="suppressDate" value="true"/>
+             <property name="suppressAllComments" value="true"/>
+         </commentGenerator>
+         <!--数据库链接地址账号密码  数据库名和用户名密码-->
+         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+	connectionURL="jdbc:mysql://localhost:3306/zhengxin" userId="root"
+	password="950727">
+         </jdbcConnection>
+         <javaTypeResolver>
+             <property name="forceBigDecimals" value="false"/>
+         </javaTypeResolver>
+         <!--生成Model类存放位置   我放在了F盘org文件夹下的src1下  他会在其下面生成lcw文件夹然后再lcw文件夹下生成model文件夹在model文件夹下生成user类-->
+         <javaModelGenerator targetPackage="com.newtouch.fbf.entity" targetProject="src\main\java">
+             <property name="enableSubPackages" value="true"/>
+             <property name="trimStrings" value="true"/>
+         </javaModelGenerator>
+         <!--生成映射文件存放位置  我放在了F盘org文件夹下的src1下  他会在其下面生成lcw文件夹然后再lcw文件夹下生成mapping文件夹在mapping文件夹下生成userMapper.xml -->
+         <sqlMapGenerator targetPackage="mapper" targetProject="src\main\resources">
+             <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成Dao类存放位置    我放在了F盘org文件夹下的src1下  他会在其下面生成lcw文件夹然后再lcw文件夹下生成dao文件夹在dao文件夹下生成userMapper类-->
+         <javaClientGenerator type="XMLMAPPER" targetPackage="com.newtouch.fbf.dao" targetProject="src\main\java">
+             <property name="enableSubPackages" value="true"/>
+         </javaClientGenerator>
+         <!--生成对应表及类名-->
+        <!-- <table tableName="car_information" domainObjectName="CarInformation"/>
+      	<table tableName="driving_license_check" domainObjectName="DrivingLicenseCheck" />
+      	<table tableName="edu_info" domainObjectName="EduInfo" />
+      	<table tableName="education_info_check" domainObjectName="EducationInfoCheck" />
+      	<table tableName="flight_info_check" domainObjectName="FlightInfoCheck" />
+      	<table tableName="illegal_info_check" domainObjectName="IllegalInfoCheck" />
+      	<table tableName="legal_person_check" domainObjectName="LegalPersonCheck"/>
+      	
+      	<table tableName="loan_info_check" domainObjectName="LoanInfoCheck"  /> 
+    	<table tableName="t_user_baseinfo" domainObjectName="TUserBaseinfo" /> 
+      	<table tableName="t_system_user" domainObjectName="TSystemUser" />
+      	<table tableName="t_user_billing_information" domainObjectName="TUserBillingInformation" /> 
+       	<table tableName="t_user_check" domainObjectName="TUserCheck" />
+       	<table tableName="t_user_loan_info" domainObjectName="TUserLoanInfo" /> -->      	
+       	<table tableName="t_user_module" domainObjectName="TUserModule" /> 
+       	<!-- <table tableName="t_user_report" domainObjectName="TUserReport" /> 
+      	<table tableName="t_user_report_count" domainObjectName="TUserReportCount"/>  -->
+       	<table tableName="t_user_report_detail" domainObjectName="TUserReportDetail"/>
+     </context>
+ </generatorConfiguration>

@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.fbf.dao.LegalPersonCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.newtouch.fbf.entity.LegalPersonCheck" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="business_type" property="businessType" jdbcType="CHAR" />
+    <result column="report_code" property="reportCode" jdbcType="VARCHAR" />
+    <result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="registered_capital" property="registeredCapital" jdbcType="VARCHAR" />
+    <result column="operating_period" property="operatingPeriod" jdbcType="VARCHAR" />
+    <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+    <result column="business_status" property="businessStatus" jdbcType="VARCHAR" />
+    <result column="shareholders_info" property="shareholdersInfo" jdbcType="VARCHAR" />
+    <result column="enterprise_position" property="enterprisePosition" jdbcType="VARCHAR" />
+    <result column="enterprise_dishonesty" property="enterpriseDishonesty" jdbcType="VARCHAR" />
+    <result column="executed_name" property="executedName" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="filing_time" property="filingTime" jdbcType="TIMESTAMP" />
+    <result column="court_execution" property="courtExecution" jdbcType="VARCHAR" />
+    <result column="legal_person" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="opening_date" property="openingDate" jdbcType="VARCHAR" />
+    <result column="enterprise_type" property="enterpriseType" jdbcType="VARCHAR" />
+    <result column="regist_authority" property="registAuthority" jdbcType="VARCHAR" />
+    <result column="regist_address" property="registAddress" jdbcType="VARCHAR" />
+    <result column="dishonesty_type" property="dishonestyType" jdbcType="VARCHAR" />
+    <result column="dishonesty_age" property="dishonestyAge" jdbcType="INTEGER" />
+    <result column="idcard_address" property="idcardAddress" jdbcType="VARCHAR" />
+    <result column="case_status" property="caseStatus" jdbcType="VARCHAR" />
+    <result column="executive_subject" property="executiveSubject" jdbcType="VARCHAR" />
+    <result column="memory_time" property="memoryTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_type, report_code, enterprise_name, registered_capital, operating_period, 
+    business_scope, business_status, shareholders_info, enterprise_position, enterprise_dishonesty, 
+    executed_name, gender, id_card, filing_time, court_execution, legal_person, opening_date, 
+    enterprise_type, regist_authority, regist_address, dishonesty_type, dishonesty_age, 
+    idcard_address, case_status, executive_subject, memory_time, create_time, update_time, 
+    create_user, update_user, is_delete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.newtouch.fbf.entity.LegalPersonCheckExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from legal_person_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from legal_person_check
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from legal_person_check
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.newtouch.fbf.entity.LegalPersonCheckExample" >
+    delete from legal_person_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.fbf.entity.LegalPersonCheck" >
+    insert into legal_person_check (id, business_type, report_code, 
+      enterprise_name, registered_capital, operating_period, 
+      business_scope, business_status, shareholders_info, 
+      enterprise_position, enterprise_dishonesty, 
+      executed_name, gender, id_card, 
+      filing_time, court_execution, legal_person, 
+      opening_date, enterprise_type, regist_authority, 
+      regist_address, dishonesty_type, dishonesty_age, 
+      idcard_address, case_status, executive_subject, 
+      memory_time, create_time, update_time, 
+      create_user, update_user, is_delete
+      )
+    values (#{id,jdbcType=CHAR}, #{businessType,jdbcType=CHAR}, #{reportCode,jdbcType=VARCHAR}, 
+      #{enterpriseName,jdbcType=VARCHAR}, #{registeredCapital,jdbcType=VARCHAR}, #{operatingPeriod,jdbcType=VARCHAR}, 
+      #{businessScope,jdbcType=VARCHAR}, #{businessStatus,jdbcType=VARCHAR}, #{shareholdersInfo,jdbcType=VARCHAR}, 
+      #{enterprisePosition,jdbcType=VARCHAR}, #{enterpriseDishonesty,jdbcType=VARCHAR}, 
+      #{executedName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{filingTime,jdbcType=TIMESTAMP}, #{courtExecution,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, 
+      #{openingDate,jdbcType=VARCHAR}, #{enterpriseType,jdbcType=VARCHAR}, #{registAuthority,jdbcType=VARCHAR}, 
+      #{registAddress,jdbcType=VARCHAR}, #{dishonestyType,jdbcType=VARCHAR}, #{dishonestyAge,jdbcType=INTEGER}, 
+      #{idcardAddress,jdbcType=VARCHAR}, #{caseStatus,jdbcType=VARCHAR}, #{executiveSubject,jdbcType=VARCHAR}, 
+      #{memoryTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{isDelete,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.fbf.entity.LegalPersonCheck" >
+    insert into legal_person_check
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="reportCode != null" >
+        report_code,
+      </if>
+      <if test="enterpriseName != null" >
+        enterprise_name,
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital,
+      </if>
+      <if test="operatingPeriod != null" >
+        operating_period,
+      </if>
+      <if test="businessScope != null" >
+        business_scope,
+      </if>
+      <if test="businessStatus != null" >
+        business_status,
+      </if>
+      <if test="shareholdersInfo != null" >
+        shareholders_info,
+      </if>
+      <if test="enterprisePosition != null" >
+        enterprise_position,
+      </if>
+      <if test="enterpriseDishonesty != null" >
+        enterprise_dishonesty,
+      </if>
+      <if test="executedName != null" >
+        executed_name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="filingTime != null" >
+        filing_time,
+      </if>
+      <if test="courtExecution != null" >
+        court_execution,
+      </if>
+      <if test="legalPerson != null" >
+        legal_person,
+      </if>
+      <if test="openingDate != null" >
+        opening_date,
+      </if>
+      <if test="enterpriseType != null" >
+        enterprise_type,
+      </if>
+      <if test="registAuthority != null" >
+        regist_authority,
+      </if>
+      <if test="registAddress != null" >
+        regist_address,
+      </if>
+      <if test="dishonestyType != null" >
+        dishonesty_type,
+      </if>
+      <if test="dishonestyAge != null" >
+        dishonesty_age,
+      </if>
+      <if test="idcardAddress != null" >
+        idcard_address,
+      </if>
+      <if test="caseStatus != null" >
+        case_status,
+      </if>
+      <if test="executiveSubject != null" >
+        executive_subject,
+      </if>
+      <if test="memoryTime != null" >
+        memory_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="reportCode != null" >
+        #{reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseName != null" >
+        #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null" >
+        #{registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingPeriod != null" >
+        #{operatingPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="businessStatus != null" >
+        #{businessStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="shareholdersInfo != null" >
+        #{shareholdersInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisePosition != null" >
+        #{enterprisePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseDishonesty != null" >
+        #{enterpriseDishonesty,jdbcType=VARCHAR},
+      </if>
+      <if test="executedName != null" >
+        #{executedName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="filingTime != null" >
+        #{filingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="courtExecution != null" >
+        #{courtExecution,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="openingDate != null" >
+        #{openingDate,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseType != null" >
+        #{enterpriseType,jdbcType=VARCHAR},
+      </if>
+      <if test="registAuthority != null" >
+        #{registAuthority,jdbcType=VARCHAR},
+      </if>
+      <if test="registAddress != null" >
+        #{registAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dishonestyType != null" >
+        #{dishonestyType,jdbcType=VARCHAR},
+      </if>
+      <if test="dishonestyAge != null" >
+        #{dishonestyAge,jdbcType=INTEGER},
+      </if>
+      <if test="idcardAddress != null" >
+        #{idcardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="caseStatus != null" >
+        #{caseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="executiveSubject != null" >
+        #{executiveSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="memoryTime != null" >
+        #{memoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.newtouch.fbf.entity.LegalPersonCheckExample" resultType="java.lang.Integer" >
+    select count(*) from legal_person_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update legal_person_check
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=CHAR},
+      </if>
+      <if test="record.reportCode != null" >
+        report_code = #{record.reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseName != null" >
+        enterprise_name = #{record.enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registeredCapital != null" >
+        registered_capital = #{record.registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatingPeriod != null" >
+        operating_period = #{record.operatingPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessScope != null" >
+        business_scope = #{record.businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessStatus != null" >
+        business_status = #{record.businessStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareholdersInfo != null" >
+        shareholders_info = #{record.shareholdersInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterprisePosition != null" >
+        enterprise_position = #{record.enterprisePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseDishonesty != null" >
+        enterprise_dishonesty = #{record.enterpriseDishonesty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executedName != null" >
+        executed_name = #{record.executedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idCard != null" >
+        id_card = #{record.idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filingTime != null" >
+        filing_time = #{record.filingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.courtExecution != null" >
+        court_execution = #{record.courtExecution,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalPerson != null" >
+        legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openingDate != null" >
+        opening_date = #{record.openingDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseType != null" >
+        enterprise_type = #{record.enterpriseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registAuthority != null" >
+        regist_authority = #{record.registAuthority,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registAddress != null" >
+        regist_address = #{record.registAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dishonestyType != null" >
+        dishonesty_type = #{record.dishonestyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dishonestyAge != null" >
+        dishonesty_age = #{record.dishonestyAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.idcardAddress != null" >
+        idcard_address = #{record.idcardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseStatus != null" >
+        case_status = #{record.caseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executiveSubject != null" >
+        executive_subject = #{record.executiveSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memoryTime != null" >
+        memory_time = #{record.memoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUser != null" >
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update legal_person_check
+    set id = #{record.id,jdbcType=CHAR},
+      business_type = #{record.businessType,jdbcType=CHAR},
+      report_code = #{record.reportCode,jdbcType=VARCHAR},
+      enterprise_name = #{record.enterpriseName,jdbcType=VARCHAR},
+      registered_capital = #{record.registeredCapital,jdbcType=VARCHAR},
+      operating_period = #{record.operatingPeriod,jdbcType=VARCHAR},
+      business_scope = #{record.businessScope,jdbcType=VARCHAR},
+      business_status = #{record.businessStatus,jdbcType=VARCHAR},
+      shareholders_info = #{record.shareholdersInfo,jdbcType=VARCHAR},
+      enterprise_position = #{record.enterprisePosition,jdbcType=VARCHAR},
+      enterprise_dishonesty = #{record.enterpriseDishonesty,jdbcType=VARCHAR},
+      executed_name = #{record.executedName,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      id_card = #{record.idCard,jdbcType=VARCHAR},
+      filing_time = #{record.filingTime,jdbcType=TIMESTAMP},
+      court_execution = #{record.courtExecution,jdbcType=VARCHAR},
+      legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      opening_date = #{record.openingDate,jdbcType=VARCHAR},
+      enterprise_type = #{record.enterpriseType,jdbcType=VARCHAR},
+      regist_authority = #{record.registAuthority,jdbcType=VARCHAR},
+      regist_address = #{record.registAddress,jdbcType=VARCHAR},
+      dishonesty_type = #{record.dishonestyType,jdbcType=VARCHAR},
+      dishonesty_age = #{record.dishonestyAge,jdbcType=INTEGER},
+      idcard_address = #{record.idcardAddress,jdbcType=VARCHAR},
+      case_status = #{record.caseStatus,jdbcType=VARCHAR},
+      executive_subject = #{record.executiveSubject,jdbcType=VARCHAR},
+      memory_time = #{record.memoryTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      update_user = #{record.updateUser,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.fbf.entity.LegalPersonCheck" >
+    update legal_person_check
+    <set >
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="reportCode != null" >
+        report_code = #{reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseName != null" >
+        enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingPeriod != null" >
+        operating_period = #{operatingPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        business_scope = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="businessStatus != null" >
+        business_status = #{businessStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="shareholdersInfo != null" >
+        shareholders_info = #{shareholdersInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisePosition != null" >
+        enterprise_position = #{enterprisePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseDishonesty != null" >
+        enterprise_dishonesty = #{enterpriseDishonesty,jdbcType=VARCHAR},
+      </if>
+      <if test="executedName != null" >
+        executed_name = #{executedName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="filingTime != null" >
+        filing_time = #{filingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="courtExecution != null" >
+        court_execution = #{courtExecution,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="openingDate != null" >
+        opening_date = #{openingDate,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseType != null" >
+        enterprise_type = #{enterpriseType,jdbcType=VARCHAR},
+      </if>
+      <if test="registAuthority != null" >
+        regist_authority = #{registAuthority,jdbcType=VARCHAR},
+      </if>
+      <if test="registAddress != null" >
+        regist_address = #{registAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dishonestyType != null" >
+        dishonesty_type = #{dishonestyType,jdbcType=VARCHAR},
+      </if>
+      <if test="dishonestyAge != null" >
+        dishonesty_age = #{dishonestyAge,jdbcType=INTEGER},
+      </if>
+      <if test="idcardAddress != null" >
+        idcard_address = #{idcardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="caseStatus != null" >
+        case_status = #{caseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="executiveSubject != null" >
+        executive_subject = #{executiveSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="memoryTime != null" >
+        memory_time = #{memoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.fbf.entity.LegalPersonCheck" >
+    update legal_person_check
+    set business_type = #{businessType,jdbcType=CHAR},
+      report_code = #{reportCode,jdbcType=VARCHAR},
+      enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+      operating_period = #{operatingPeriod,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      business_status = #{businessStatus,jdbcType=VARCHAR},
+      shareholders_info = #{shareholdersInfo,jdbcType=VARCHAR},
+      enterprise_position = #{enterprisePosition,jdbcType=VARCHAR},
+      enterprise_dishonesty = #{enterpriseDishonesty,jdbcType=VARCHAR},
+      executed_name = #{executedName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      filing_time = #{filingTime,jdbcType=TIMESTAMP},
+      court_execution = #{courtExecution,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      opening_date = #{openingDate,jdbcType=VARCHAR},
+      enterprise_type = #{enterpriseType,jdbcType=VARCHAR},
+      regist_authority = #{registAuthority,jdbcType=VARCHAR},
+      regist_address = #{registAddress,jdbcType=VARCHAR},
+      dishonesty_type = #{dishonestyType,jdbcType=VARCHAR},
+      dishonesty_age = #{dishonestyAge,jdbcType=INTEGER},
+      idcard_address = #{idcardAddress,jdbcType=VARCHAR},
+      case_status = #{caseStatus,jdbcType=VARCHAR},
+      executive_subject = #{executiveSubject,jdbcType=VARCHAR},
+      memory_time = #{memoryTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

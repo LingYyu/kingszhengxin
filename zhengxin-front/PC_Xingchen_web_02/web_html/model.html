@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html ng-app="UserInfoModule">
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+		<title>kings征信-选择模块查询</title>
+		<!-- Bootstrap core CSS -->
+		<link href="../dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="../dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+		<!-- Bootstrap icheck css -->
+		<link href="../dist/css/icheck/pink.css" rel="stylesheet" />
+		<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+		<script src="../assets/js/ie-emulation-modes-warning.js" type="text/javascript"></script>
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+		<!--my style-->
+		<link href="../dist/css/web_style.css" rel="stylesheet" type="text/css" />
+		<!-- <script type="text/javascript">
+			function test(){
+				var shuju = $("#Internet3").prop("checked")? 1 : 0;
+				alert(shuju);
+			}
+		</script> -->
+	</head>
+	<body ng-controller="UserInfoCtrl">
+
+	<!-- <button onclick="test()">测试测试测试测试</button> -->
+	<nav class="navbar navbar-fixed-top navbar-credit">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="logo_a" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav nav_ul">
+            <li><a href="creatUser.html">新建用户</a></li>
+            <li class="active"><a href="user.html">用户列表</a></li>
+            <li><a href="history.html">查询历史</a></li>
+            <li><a href="account.html"">账户信息</a></li>
+          </ul>
+          <div class="sigin_out"><a href="singin.html">退出</a></div>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+    
+    
+    <div class="container container-fluid">
+    	<div class="row bread_top">
+				<div class="pull-left">
+					<ol class="breadcrumb">
+						<li>
+							<a href="user.html">查询</a>
+						</li>
+						<li id="nameAndIdCard" class="active"></li>
+					</ol>
+				</div>
+				<div class="pull-right">
+					<ul class="bread_right">
+						<li><a href="#" onclick="reportdetail()">征信报告</a></li>
+						<li><a class="active">模块列表</a></li>
+						<li><a href="##" onclick="edit()">补充资料</a></li>
+                    	<li><a href="##" onclick="loan()">贷款信息</a></li>
+					</ul>
+				</div>
+			</div>
+
+
+
+     
+		<div class="row">
+			<ul class="model_ul">
+				<li class="col-sm-3">
+					<div class="model_border">
+					<div class="pull-left">
+						<i class="glyphicon glyphicon-ok"></i>
+						<span>身份信息核查</span>
+					</div>
+					</div>
+				</li>
+				<li class="col-sm-3">
+					<div class="model_border">
+					<div class="pull-left">
+						<i class="glyphicon glyphicon-ok"></i>
+						<span>通讯信息核查</span>
+					</div>
+					<a href="##" class="pull-right" data-toggle="modal" data-target="#tel" onclick="clicka(this)">
+						<p class="p1" id="performance_communication">100%</p>
+						<p class="p2">录入完成度</p>
+					</a>
+					</div>
+				</li>
+				<li class="col-sm-3">
+					<div class="model_border">
+					<div class="pull-left">
+						<i class="glyphicon glyphicon-ok"></i>
+						<span>银行卡信息核查</span>
+					</div>
+					<a href="#bank" class="pull-right" data-toggle="modal" data-target="#bank" onclick="clicka(this)">
+						<p class="p1" id="performance_bank">100%</p>
+						<p class="p2">录入完成度</p>
+					</a>
+					</div>
+				</li>
+				<li class="col-sm-3">
+					<div class="model_border">
+					<div class="pull-left">
+						<i class="glyphicon glyphicon-ok"></i>
+						<span>学历学籍核查</span>
+					</div>
+					<a href="#xueli" class="pull-right" data-toggle="modal" data-target="#xueli"  onclick="clicka(this)">
+						<p class="p1" id="performance_xueli">100%</p>
+						<p class="p2">录入完成度</p>
+					</a>
+					</div>
+				</li>
+				<li class="col-sm-3">
+					<div class="model_border">
+					<div class="pull-left" style="width: 100%;">
+					  <input tabindex="14" type="checkbox" id="flat-checkbox-1" >
+	                  <label for="flat-checkbox-1">个人工商法人信息</label>
+						<!-- <input type="checkbox">
+						<span>个人工商法人信息</span> -->
+					</div>
+					</div>
+				</li>
+				<li class="col-sm-3">
+					<div class="model_border">
+					<div class="pull-left">
+						<input tabindex="14" type="checkbox" id="flat-checkbox-2" >
+						<label for="flat-checkbox-2">贷款信息查询</label>
+					</div>
+					</div>
+				</li>
+
+				<li class="col-sm-3">
+					<div class="model_border">
+					<div class="pull-left" >
+						<input tabindex="14" type="checkbox" id="driver6">
+						<label for="driver6">行驶证查询</label>
+					</div>
+					<a href="#" class="pull-right" data-toggle="modal" data-target="#drive"  onclick="clicka(this)">
+						<p class="p1_no" id="performance_drive">50%</p>
+						<p class="p2">录入完成度</p>
+					</a>
+					</div>
+				</li>
+				<li class="col-sm-3">
+					<div class="model_border">
+					<div class="pull-left" >
+						<input tabindex="14" type="checkbox" id="weizhang6" >
+						<label for="weizhang6">违章查询</label>				
+					</div>
+					<a href="#xueli" class="pull-right" data-toggle="modal" data-target="#violation" onclick="clicka(this)">
+						<p class="p1_no" id="performance_violation">50%</p>
+						<p class="p2">录入完成度</p>
+					</a>
+					</div>
+				</li>
+				<li class="col-sm-3">
+					<div class="model_border">
+					<div class="pull-left">
+						<input tabindex="14" type="checkbox" id="flat-checkbox-5" >
+						<label for="flat-checkbox-5">飞行情况核查</label>
+					</div>
+					</div>
+				</li>
+				<li class="col-sm-3">
+					<div class="model_border">
+					<div class="pull-left">
+						<input tabindex="14" type="checkbox" id="Internet3" >
+						<label for="Internet3">互联网信用核查</label>
+					</div>
+					<a href="##" class="pull-right" data-toggle="modal" data-target="#Internet" onclick="clicka(this)">
+						<p class="p1_no" id="performance_Internet3">0%</p>
+						<p class="p2">录入完成度</p>
+					</a>
+					</div>
+				</li>
+			</ul>
+      </div>
+      
+
+
+     
+      <div class="row">
+		 <form class="form_select" style="border-bottom: none;">
+		 	
+		  <div class="form-group col-sm-offset-3 col-sm-3">
+		      <label for="basic" class="col-sm-4 control-label select_label">贷款阶段</label>
+		      <div class="col-sm-8">
+		        <select id="basic1" class="selectpicker show-tick form-control select_noBorder">
+		          <option>贷前</option>
+		          <option data-subtext="option subtext">贷中</option>
+		          <option class="get-class">贷后</option>
+		        </select>
+		      </div>
+		    </div>
+		  <div class="form-group col-sm-3">
+		      <label for="basic" class="col-sm-4 control-label select_label">产品名称</label>
+		      <div class="col-sm-8">
+		        <select id="basic2" class="selectpicker show-tick form-control select_noBorder">
+		          <option>手机贷</option>
+		          <option data-subtext="option subtext">大学贷</option>
+		        </select>
+		      </div>
+		    </div>
+		  
+		</form>
+    	</div>
+    	<div class="row model_p">
+    		
+    		<button class="btn btn-credit_bor col-sm-4 col-sm-offset-4" onclick="showAllModal()" id="showAllModal_div">
+    			<p class="p1">已选模块录入信息完成度</p>
+    			<p class="p2" id="all_inforperformance">100%</p>
+    		</button>
+    		
+    	</div>
+    	<div class="row">
+    	  <div class="col-sm-offset-4 col-sm-4">
+    		<a href="##" style="text-decoration: none;"><button class="btn btn-block btn-credit btn-lg"
+    		disabled="true" id="buttonnext" onclick="infor()">查询</button></a>
+    	  </div>
+    	</div>
+    </div>
+        <!-- Modal tel -->
+<div class="modal fade" id="tel" tabindex="-1" role="dialog" aria-labelledby="myModalxueli" data-backdrop="static">
+  <div class="modal-dialog" role="document" style="width: 600px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalxueli">通讯信息核查</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form_dan_infor">
+		    <div class="form-group">
+			    <label for="phone1">手机号</label>
+
+			    <input type="text" class="form-control col-sm-2" ng-model="userInfo.phone8" id="phone1"  onkeyup="formatphone(this)" maxlength="15"/>
+
+
+			</div>
+	    </div>  
+		    <div class="blank_20"></div>
+		    <div class="blank_20"></div>
+
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-credit" data-dismiss="modal" aria-label="Close" onclick="phonechaxun()">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <!-- Modal bank -->
+<div class="modal fade" id="bank" tabindex="-1" role="dialog" aria-labelledby="myModalxueli" data-backdrop="static">
+  <div class="modal-dialog" role="document" style="width: 600px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalxueli">银行卡信息核查</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form_dan_infor">
+	        
+		    <div class="form-group">
+			    <label for="examplebank">银行卡号</label>
+			    <input type="xuewei" class="form-control col-sm-2" ng-model="userInfo.banknumber8" id="examplebank"  onkeyup="formatBankNo(this)" maxlength="19"/>
+			</div>
+			  
+		    <div class="blank_20"></div>
+		    <div class="blank_20"></div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-credit" onclick="bankchaxun()">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+<!-- Modal xueli -->
+<div class="modal fade" id="xueli" tabindex="-1" role="dialog" aria-labelledby="myModalxueli" data-backdrop="static">
+  <div class="modal-dialog" role="document" style="width: 600px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalxueli">学历学籍核查</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form_dan_infor">
+	        <div class="form-group">
+		      <label for="xuewei_select">学位</label>
+		        <select id="xuewei_select" ng-model="userInfo.xuewei8" class="selectpicker show-tick select_noBorder">
+		          <option>本科</option>
+		          <option data-subtext="option subtext">硕士</option>
+		          <option class="get-class">博士</option>
+		        </select>
+		    </div>
+		    <div class="form-group">
+			    <label for="inschooltime">入学时间</label>
+			    <input size="7" type="text" value="2015-09" class="form_datetime text_month select_noBorder" readonly id="inschooltime" ng-model="userInfo.inschooltime8">
+			</div>
+			  <div class="form-group">
+			    <label for="exampleInputxuewei">学校</label>
+			    <input type="text" class="form-control" id="exampleInputxuewei" ng-model="userInfo.schoolname8" maxlength="30">
+			  </div>
+			  <div class="form-group">
+			    <label for="exampleInputxuehao">学籍号</label>
+			    <input type="text" class="form-control col-sm-2" id="exampleInputxuehao" ng-model="userInfo.schoolxuehao9" />
+			    <div class="pull-left col-sm-2" style="padding: 5px 10px;">
+					<input tabindex="14" type="checkbox" id="flat-checkbox-0" />
+					<span for="flat-checkbox-0">无</span>				
+				</div>
+		    </div>
+		    <div class="blank_20"></div>
+		    <div class="blank_20"></div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-credit" onclick="xueweichaxun()">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Internet -->
+<div class="modal fade" id="Internet" tabindex="-1" role="dialog" aria-labelledby="myModalxueli" data-backdrop="static">
+  <div class="modal-dialog" role="document" style="width: 600px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalxueli">互联网信息核查</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form_dan_infor">
+			  <div class="form-group">
+			    <label for="phone4">手机号</label>
+			    <input type="text" class="form-control" id="phone4" ng-model="userInfo.phone9" maxlength="11">
+			  </div>
+
+			  <div class="form-group clearfix">
+			    <label for="taobao4">淘宝账号</label>
+			    <input type="text" class="form-control col-sm-2" id="taobao4" ng-model="userInfo.taobao9"/>
+			    <div class="pull-left col-sm-2" style="padding: 5px 10px;">
+					<input tabindex="14" type="checkbox" id="showtaobao4" />
+					<span for="showtaobao4">无</span>				
+				</div>
+		    </div>
+		    <div class="form-group clearfix">
+			    <label for="taopasd4">淘宝密码</label>
+			    <input type="text" class="form-control col-sm-2" id="taopasd4" ng-model="userInfo.taopasd9"/>
+			    <div class="pull-left col-sm-2" style="padding: 5px 10px;">
+					<input tabindex="14" type="checkbox" id="showtaopasd4" />
+					<span for="showtaopasd4">无</span>				
+				</div>
+		    </div>
+			  <div class="form-group clearfix">
+			    <label for="jingdong4">京东账号</label>
+			    <input type="text" class="form-control col-sm-2" id="jingdong4" ng-model="userInfo.jingdong9"/>
+			    <div class="pull-left col-sm-2" style="padding: 5px 10px;">
+					<input tabindex="14" type="checkbox" id="showjingdong4" />
+					<span for="showjingdong4">无</span>				
+				</div>
+		    </div>
+		    <div class="form-group clearfix">
+			    <label for="jpasd4">京东密码</label>
+			    <input type="text" class="form-control col-sm-2" id="jpasd4"  ng-model="userInfo.jpasd9"/>
+			    <div class="pull-left col-sm-2" style="padding: 5px 10px;">
+					<input tabindex="14" type="checkbox" id="showjpsd4"/>
+					<span for="showjpsd4">无</span>				
+				</div>
+		    </div>
+		    <div class="blank_20"></div>
+		    <div class="blank_20"></div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-credit" data-dismiss="modal" aria-label="Close" onclick="internetchaxun()">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+   <!-- Modal drive -->
+<div class="modal fade" id="drive" tabindex="-1" role="dialog" aria-labelledby="myModalxueli" data-backdrop="static">
+  <div class="modal-dialog" role="document" style="width: 600px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalxueli">行驶证查询</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form_dan_infor">
+		    <div class="form-group">
+			    <label for="carnumber0">车牌号</label>
+			    <input type="xuewei" class="form-control" id="carnumber0" ng-model="userInfo.carnumber8"  maxlength="9"/>
+			</div>
+			  <div class="form-group">
+			    <label for="vehicletype0">车辆类型</label>
+		        <select  class="selectpicker show-tick select_noBorder" ng-model="userInfo.vehicletype8" id="vehicletype0">
+		          <option>小型汽车</option>
+		          <option data-subtext="option subtext">中型汽车</option>
+		          <option class="get-class">大型汽车</option>
+		        </select>
+			</div>
+		    <div class="blank_20"></div>
+		    <div class="blank_20"></div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-credit" data-dismiss="modal" aria-label="Close" onclick="driver()">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+   <!-- Modal violation -->
+<div class="modal fade" id="violation" tabindex="-1" role="dialog" aria-labelledby="myModalxueli" data-backdrop="static">
+  <div class="modal-dialog" role="document" style="width: 600px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalxueli">违章查询</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form_dan_infor">
+		    <div class="form-group">
+			    <label for="vcarnumber3">车牌号</label>
+			    <input type="xuewei" class="form-control" id="vcarnumber3" ng-model="userInfo.vcarnumber8" maxlength="9" />
+			</div>
+			  <div class="form-group">
+			    <label for="vvehicletype3">车辆类型</label>
+			    <select  class="selectpicker show-tick select_noBorder" id="vvehicletype3" ng-model="userInfo.vvehicletype8">
+		          <option>小型汽车</option>
+		          <option data-subtext="option subtext">中型汽车</option>
+		          <option class="get-class">大型汽车</option>
+		       </select>
+			</div>
+			<div class="form-group">
+			    <label for="vin3">违章地点</label>
+			    <input type="xuewei" class="form-control" id="vin3" maxlength="17"  ng-model="userInfo.vin8"/>
+			</div>
+			<div class="form-group">
+			    <label for="engine3">违章原因</label>
+			    <input type="xuewei" class="form-control" id="engine3" maxlength="8"  ng-model="userInfo.engine8"/>
+			</div>
+		    <div class="blank_20"></div>
+		    <div class="blank_20"></div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-credit" onclick="violation()" data-dismiss="modal" aria-label="Close">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- Modal infor -->
+<div class="modal fade" id="all_infor" tabindex="-1" role="dialog" aria-labelledby="myModalall_infor" data-backdrop="static">
+  <div class="modal-dialog" role="document" style="width: 600px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalall_infor">批量补录信息</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="form_dan_infor">
+
+      	<div id="bank_information">
+	        <h4>银行卡信息核查</h4>
+	            <div class="form-group">
+
+				    <label for="exampleInputkahao">银行卡号</label>
+				    <input type="text" class="form-control" id="exampleInputkahao" maxlength="19" ng-model="userInfo.banknumber8">
+				</div>
+         </div>
+
+
+         <div  id="tongxun_information">
+			<h4>通讯信息核查</h4>
+				   <div class="form-group">
+						 <label for="examplebank1">手机号</label>
+						 <input type="text" class="form-control" id="examplebank1"  onkeyup="formatphone(this)" maxlength="11" ng-model="userInfo.phone8"/>
+					</div>
+         </div>
+
+
+         <div id="xueli_information">
+			<h4 >学历学籍核查</h4>
+				 <div class="form-group" id="xuewei10">
+				      <label for="xuewei_select3">学位</label>
+				        <select id="xuewei_select3" class="selectpicker show-tick select_noBorder" ng-model="userInfo.xuewei8">
+				          <option>本科</option>
+				          <option data-subtext="option subtext">硕士</option>
+				          <option class="get-class">博士</option>
+				       </select>
+			     </div>
+			     <div class="form-group" id="inschooltime10">
+				    <label for="inschooltime3">入学时间</label>
+				    <input size="7" type="text" value="2015-09" class="form_datetime text_month select_noBorder" readonly id="inschooltime3" ng-model="userInfo.inschooltime8">
+				 </div>
+				 <div class="form-group" id="exampleInputxuewei10">
+				    <label for="exampleInputxuewei3">学校</label>
+				    <input type="xuewei" class="form-control" id="exampleInputxuewei3" maxlength="30" ng-model="userInfo.schoolname8">
+				 </div>
+				 <div class="form-group" id="exampleInputxuehao10">
+				    <label for="exampleInputxuehao3">学籍号</label>
+				    <input type="xuewei" class="form-control col-sm-2" id="exampleInputxuehao3" ng-model="userInfo.schoolxuehao9" />
+				    <div class="pull-left " style="padding: 5px 10px;">
+						<input tabindex="14" type="checkbox" id="flat-checkbox-0" />
+						<span for="flat-checkbox-0 ">无</span>				
+					</div>
+			     </div>
+		 </div>
+<br><br><br>
+
+
+
+       <div id="Internet_information">
+          <h4 >互联网信息核查</h4>
+			
+			  <div class="form-group" id="phone10">
+			    <label for="phone3">手机号</label>
+			    <input type="text" class="form-control" id="phone3" maxlength="11" ng-model="userInfo.phone8" >
+			  </div>
+			  <div class="form-group clearfix" id="taobao10">
+			    <label for="taobao5">淘宝账号</label>
+			    <input type="text" class="form-control col-sm-2" id="taobao5"  ng-model="userInfo.taobao9"/>
+			    <div class="pull-left col-sm-2" style="padding: 5px 10px;">
+					<input tabindex="14" type="checkbox" id="flat-checkbox-0" />
+					<span for="flat-checkbox-1">无</span>				
+				</div>
+		    </div>
+		    <div class="form-group clearfix" id="taopasd10">
+			    <label for="taopasd5">淘宝密码</label>
+			    <input type="text" class="form-control col-sm-2" id="taopasd5"  ng-model="userInfo.taopasd9"/>
+			    <div class="pull-left col-sm-2" style="padding: 5px 10px;">
+					<input tabindex="14" type="checkbox" id="flat-checkbox-0" />
+					<span for="flat-checkbox-0">无</span>				
+				</div>
+		    </div>
+			  <div class="form-group clearfix" id="jingdong10">
+			    <label for="jingdong5">京东账号</label>
+			    <input type="text" class="form-control col-sm-2" id="jingdong5" ng-model="userInfo.jingdong9"/>
+			    <div class="pull-left col-sm-2" style="padding: 5px 10px;">
+					<input tabindex="14" type="checkbox" id="flat-checkbox-0" />
+					<span for="flat-checkbox-0">无</span>				
+				</div>
+		    </div>
+		    <div class="form-group clearfix" id="jpasd10">
+			    <label for="jpasd5">京东密码</label>
+			    <input type="xuewei" class="form-control col-sm-2" id="jpasd5" ng-model="userInfo.jpasd9"/>
+			    <div class="pull-left col-sm-2" style="padding: 5px 10px;">
+					<input tabindex="14" type="checkbox" id="flat-checkbox-0" onclick="clickb()" />
+					<span for="flat-checkbox-0">无</span>				
+				</div>
+			</div>
+       </div>
+
+
+      
+       <div id="xinshi_information">
+       <h4>行驶证查询</h4>
+			<div class="form-group" id="carnumber10">
+			    <label for="carnumber6">车牌号</label>
+			    <input type="xuewei" class="form-control" id="carnumber6" onkeydown="yanzheng()" maxlength="9"  ng-model="userInfo.carnumber8"/>
+			</div>
+			  <div class="form-group" id="vehicletype10">
+			    <label for="vehicletype6">车辆类型</label>
+		        <select  class="selectpicker show-tick select_noBorder" id="vehicletype6" ng-model="userInfo.vehicletype8">
+		          <option>小型汽车</option>
+		          <option data-subtext="option subtext">中型汽车</option>
+		          <option class="get-class">大型汽车</option>
+		        </select>
+			</div>
+      </div>
+
+
+
+      <div id="weizhang_information">
+       <h4 >违章查询</h4>
+         <div class="form-group" id="vcarnumber10">
+			    <label for="vcarnumber7">车牌号</label>
+			    <input type="text"  class="form-control" id="vcarnumber7" maxlength="9" ng-model="userInfo.vcarnumber8" />
+			</div>
+			  <div class="form-group" id="vvehicletype10">
+			    <label for="vvehicletype7">车辆类型</label>
+			    <select id="xuewei_select" class="selectpicker show-tick select_noBorder" id="vvehicletype7" ng-model="userInfo.vvehicletype8">
+		          <option>小型汽车</option>
+		          <option data-subtext="option subtext">中型汽车</option>
+		          <option class="get-class">大型汽车</option>
+		       </select>
+			</div>
+			<div class="form-group" id="vin10">
+			    <label for="vin7">违章地点</label>
+			    <input type="text" class="form-control" id="vin7" maxlength="17" ng-model="userInfo.vin8" />
+			</div>
+			<div class="form-group" id="engine10">
+			    <label for="engine7">违章原因</label>
+			    <input type="text" class="form-control" id="engine7" maxlength="8" ng-model="userInfo.engine8" />
+			</div>
+        </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-credit" onclick="all_infor()" data-dismiss="modal" aria-label="Close">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <script src="../dist/js/jquery.min.1.11.2.js" type="text/javascript"></script>
+		<script src="../dist/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="../dist/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+		<script src="../dist/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+		<script src="../dist/js/icheck/icheck.js" type="text/javascript"></script>
+	    <script src="../dist/js/jquery-ui.min.js" type="text/javascript"></script>
+		<script src="../dist/js/web_jscript.js" type="text/javascript"></script>
+      <script>
+   
+
+  
+
+
+      	function clicka(obj){
+			$(obj).addClass("a_bg");
+			$moadl = $($(obj).attr("data-target"));
+				$moadl.on("hide.bs.modal",function(e){//为modal添加隐藏后执行事件
+						$(obj).removeClass("a_bg");
+						//$(obj).addClass("btn-credit_bor");
+				});
+		}
+
+
+
+
+      $(function(){ 
+
+      	     //方法二：
+            (function ($) {
+                $.getUrlParam = function (name) {
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null) return unescape(r[2]); return null;
+                }
+            })(jQuery);
+            var id_Card = $.getUrlParam('idCard');
+
+            $.ajax({
+					type:"post",
+					url:"http://localhost:9999/insetModelInfo",
+					dataType: "jsonp",
+					jsonp:"userModelInfo",
+					jsonpCallback: "success_jsonpCallback",
+					data:{
+						"idCard":id_Card,
+					},
+					success:function(data){
+					$("#nameAndIdCard").text(data.tUserBaseinfo.userName+" "+data.tUserBaseinfo.idCard);
+					//贷款是否为学生贷
+                      $("#basic1").val(data.tUserReport.loanPhase),
+					  $("#basic2").val(data.tUserReport.productName),
+					  
+					//学历信息
+                    $("#xuewei_select").val(data.educationInfoCheck.collegeLevel),
+					$("#inschooltime").val(data.educationInfoCheck.startTime),
+					$("#exampleInputxuewei").val(data.educationInfoCheck.college),
+					$("#exampleInputxuehao").val(data.educationInfoCheck.schoolNumber), 
+
+
+
+                   //银行卡信息
+                    $("#examplebank").val(data.tUserReportDetail.bankCard),
+                  
+
+                  //电话信息
+                    $("#phone1").val(data.tUserBaseinfo.telephone);
+                    $("#phone4").val(data.tUserBaseinfo.telephone);
+				  //工商法
+					if(data.tUserModule.businessChoose){
+                        $("#flat-checkbox-1").iCheck('check');
+					}else{
+						$("#flat-checkbox-1").iCheck("uncheck");
+					}
+
+
+
+
+                  //贷款信息查询
+                    if(data.tUserModule.loanChoose){
+                        $("#flat-checkbox-2").iCheck('check');
+						}else{
+							$("#flat-checkbox-2").iCheck("uncheck");
+						}
+                   //行驶证查询
+                    if(data.tUserModule.drivingChoose==1){
+                        $("#driver6").iCheck('check');
+                        //行驶证查询
+                        $("#carnumber0").val(data.tUserReportDetail.carNumber);
+					    $("#vehicletype0").val(data.tUserReportDetail.carType);
+			 		    $("#performance_drive").text("100%");
+			            $("#performance_drive").removeClass("p1_no");
+			            $("#performance_drive").addClass("p1");
+
+						}else{
+							$("#driver6").iCheck("uncheck");
+							$("#performance_drive").text("50%");
+							$("#performance_drive").removeClass("p1");
+					        $("#performance_drive").addClass("p1_no");
+				}
+
+
+
+
+              // 违章查询
+			   if(data.tUserModule.illegalChoose){
+                        $("#weizhang6").iCheck('check');
+                        //违章查询
+					    $("#vcarnumber3").val(data.tUserReportDetail.carNumber);
+						$("#vvehicletype3").val(data.tUserReportDetail.carType);
+						$("#vin3").val(data.illegalInfoCheck.violationPlace);
+						$("#engine3").val(data.illegalInfoCheck.violationReason);
+						$("#performance_violation").text("100%");
+					     $("#performance_violation").removeClass("p1_no");
+					     $("#performance_violation").addClass("p1");
+				}else{
+					$("#weizhang6").iCheck("uncheck");
+					$("#performance_violation").text("25%");
+					$("#performance_violation").removeClass("p1");
+					$("#performance_violation").addClass("p1_no");
+				}
+
+
+			  // 飞行情况核查
+			  if(data.tUserModule.flyChoose){
+                        $("#flat-checkbox-5").iCheck('check');
+				}else{
+						$("#flat-checkbox-5").iCheck("uncheck");
+				}
+
+
+
+              //互联网信息查询
+		      if(data.tUserModule.internetChoose){
+                        $("#Internet3").iCheck('check');
+                        //互联网信息
+						$("#taobao4").val(data.tUserReportDetail.taobaoNumber);
+						$("#taopasd4").val(data.tUserReportDetail.taobaoPwd);
+						$("#jingdong4").val(data.tUserReportDetail.jingdongNumber);
+						$("#jpasd4").val(data.tUserReportDetail.jingdongPwd);
+						$("#performance_Internet3").text("100%");
+					     $("#performance_Internet3").removeClass("p1_no");
+					     $("#performance_Internet3").addClass("p1");
+				}else{
+						$("#Internet3").iCheck("uncheck");
+						$("#performance_Internet3").text("20%");
+						$("#performance_Internet3").removeClass("p1");
+						$("#performance_Internet3").addClass("p1_no");
+				}
+
+			},
+		error: function(jqXHR){     
+			              
+		      	    },     
+				});
+       }); 
+
+
+
+
+    //学历学籍核查
+	function xueweichaxun(){
+		var inputNum = $("#flat-checkbox-0").prop("checked")? 3 : 4;
+		var proportion = Math.ceil(100/inputNum);
+		var performance_xuewei = 0;
+		
+		if ($("#xuewei_select").val().length != 0 && $("#xuewei_select").val()!="请选择" && $("#xuewei_select").val()!="") {
+			performance_xuewei += proportion;
+			
+		} 
+		if($("#inschooltime").val().length!=0 && $("#inschooltime").val()!=""){
+			performance_xuewei += proportion;
+		}
+		if($("#exampleInputxuewei").val().length!=0 && $("#exampleInputxuewei").val()!=""){
+			performance_xuewei += proportion;
+		}
+		if(!$("#flat-checkbox-0").prop("checked") &&($("#exampleInputxuehao").val().length!=0 && $("#exampleInputxuehao").val()!="")){
+			performance_xuewei += proportion;
+		}
+		$("#xueli").modal("hide");
+		
+		if(performance_xuewei >= 100){
+			$("#performance_xueli").text("100%");
+			$("#performance_xueli").removeClass("p1_no");
+			$("#performance_xueli").addClass("p1");
+		}else{
+			$("#performance_xueli").text(performance_xuewei+"%");
+			$("#performance_xueli").removeClass("p1");
+			$("#performance_xueli").addClass("p1_no");
+		}
+
+		$.ajax({
+					type:"post",
+					url:"http://localhost:9999/insertXueliInfo",
+					dataType: "jsonp",
+					jsonp:"xueweichaxun",
+					jsonpCallback: "success_jsonpCallback",
+					data:{
+						"xueWei":$("#xuewei_select").val(),
+						"inSchoolTime":$("#inschooltime").val(),
+						"xueXiao":$("#exampleInputxuewei").val(),
+						"xueJHao":$("#exampleInputxuehao").val()
+					},
+					success:function(data){
+						
+					},
+					error: function(jqXHR){     
+			              
+		      	    },     
+				});
+
+		zonggongchaxun();
+	}
+	
+
+
+
+   //银行卡信息核查
+	function bankchaxun(){
+		if ($("#examplebank").val().length != 0 && $("#examplebank").val()!="") {
+			$("#bank").modal("hide");
+			$("#performance_bank").text("100%");
+			$("#performance_bank").removeClass("p1_no");
+			$("#performance_bank").addClass("p1");
+		} else{
+			$("#bank").modal("hide");
+			$("#performance_bank").text("0%");
+			$("#performance_bank").removeClass("p1");
+			$("#performance_bank").addClass("p1_no");
+			
+		}
+		$.ajax({
+					type:"post",
+					url:"http://localhost:9999/insertBankInfo",
+					dataType: "jsonp",
+					jsonp:"bankchaxun",
+					jsonpCallback: "success_jsonpCallback",
+					data:{
+						"bankNumber":$("#examplebank").val()
+					},
+					success:function(data){
+						
+					},
+					error: function(jqXHR){     
+			              
+		      	    },     
+				});
+		zonggongchaxun();
+	}
+
+   
+
+   //通讯信息核查
+	function phonechaxun(){
+		if ($("#phone1").val().length != 0 && $("#phone1").val()!="") {
+			$("#tel").modal("hide");
+			$("#performance_communication").text("100%");
+			$("#performance_communication").removeClass("p1_no");
+			$("#performance_communication").addClass("p1");
+		} else{
+			$("#tel").modal("hide");
+			$("#performance_communication").text("0%");
+			$("#performance_communication").removeClass("p1");
+			$("#performance_communication").addClass("p1_no");
+			
+		}
+
+		$.ajax({
+					type:"post",
+					url:"http://localhost:9999/insertTongxunInfo",
+					dataType: "jsonp",
+					jsonp:"phonechaxun",
+					jsonpCallback: "success_jsonpCallback",
+					data:{
+						"phoneNumber":$("#phone1").val()
+					},
+					success:function(data){
+						
+					},
+					error: function(jqXHR){     
+			             
+		      	    },     
+				});
+		zonggongchaxun();
+	}
+	
+
+
+
+
+    //行驶证查询
+	function driver(){
+		var performance_driver = 0;
+		var proportion = Math.ceil(100/2);
+		if ($("#carnumber0").val().length != 0 && $("#carnumber0").val()!="") {
+			performance_driver +=proportion;
+		}
+		if ($("#vehicletype0").val().length != 0 && $("#vehicletype0").val()!="") {
+			performance_driver +=proportion;
+		}
+		$("#drive").modal("hide");
+		if(performance_driver>= 100){
+			$("#performance_drive").text("100%");
+			$("#performance_drive").removeClass("p1_no");
+			$("#performance_drive").addClass("p1");
+		}else{
+			$("#performance_drive").text(performance_driver+"%");
+			$("#performance_drive").removeClass("p1");
+			$("#performance_drive").addClass("p1_no");
+		}
+		$.ajax({
+					//type:"post",
+					url:"http://localhost:9999/insertDrivingLicenseCheck",
+					dataType: "jsonp",
+					jsonp:"driver",
+					jsonpCallback: "success_jsonpCallback",
+					data:{
+						"carNumber":$("#carnumber0").val(),
+						"vehicleType":$("#vehicletype0").val()
+					},
+					success:function(data){
+						
+					},
+					error: function(jqXHR){     
+			            
+		      	    },     
+				});
+		zonggongchaxun();
+	}
+	
+
+
+    //违章查询
+	function violation(){
+		var performance_violations = 25;
+		if ($("#vcarnumber3").val().length != 0 && $("#vcarnumber3").val()!="") {
+			performance_violations +=25;
+		}
+		if ($("#vin3").val().length != 0 && $("#vin3").val()!="") {
+			performance_violations +=25;
+		}
+		if ($("#engine3").val().length != 0 && $("#engine3").val()!="") {
+			performance_violations +=25;
+		}
+		$("#violation").modal("hide");
+		if(performance_violations>= 100){
+			$("#performance_violation").text("100%");
+			$("#performance_violation").removeClass("p1_no");
+			$("#performance_violation").addClass("p1");
+		}else{
+			$("#performance_violation").text(performance_violations+"%");
+			$("#performance_violation").removeClass("p1");
+			$("#performance_violation").addClass("p1_no");
+		}
+		$.ajax({
+					type:"post",
+					url:"http://localhost:9999/insertIllegalInfoCheck",
+					dataType: "jsonp",
+					jsonp:"violation",
+					jsonpCallback: "success_jsonpCallback",
+					data:{
+						"vcarNumber":$("#vcarnumber3").val(),
+						"vin3":$("#vin3").val(),
+						"engine3":$("#engine3").val(),
+						"vvehicleType":$("#vvehicletype3").val()
+					},
+					success:function(data){
+						
+					},
+					error: function(jqXHR){     
+			            
+		      	    },     
+				});
+		zonggongchaxun();
+	}
+	
+
+//互联网信息核查
+function internetchaxun(){
+		var inputNum =5;
+         if($("#showtaobao4").prop("checked")){
+           inputNum--;
+         }
+          if($("#showtaopasd4").prop("checked")){
+           inputNum--;
+         }
+          if($("#showjingdong4").prop("checked")){
+           inputNum--;
+         }
+          if($("#showjpsd4").prop("checked")){
+           inputNum--;
+         }
+		var proportion = Math.ceil(100/inputNum);
+		var performance_Internet3 = 0;
+		
+		if ($("#phone4").val().length != 0 && $("#phone4").val()!="") {
+			performance_Internet3 += proportion;	
+		} 
+		if(!$("#showtaobao4").prop("checked")&&$("#taobao4").val().length!=0 && $("#taobao4").val()!=""){
+			performance_Internet3 += proportion;
+		}
+		if(!$("#showtaopasd4").prop("checked")&&$("#taopasd4").val().length!=0 && $("#taopasd4").val()!=""){
+			performance_Internet3 += proportion;
+		}
+		if(!$("#showjingdong4").prop("checked") &&($("#jingdong4").val().length!=0 && $("#jingdong4").val()!="")){
+			performance_Internet3 += proportion;
+		}
+		if(!$("#showjpsd4").prop("checked")&&($("#jpasd4").val().length!=0 && $("#jpasd4").val()!="")){
+			performance_Internet3 += proportion;
+		}
+
+
+
+		$("#Internet").modal("hide");
+		
+		if(performance_Internet3 >= 100){
+			$("#performance_Internet3").text("100%");
+			$("#performance_Internet3").removeClass("p1_no");
+			$("#performance_Internet3").addClass("p1");
+		}else{
+			$("#performance_Internet3").text(performance_Internet3+"%");
+			$("#performance_Internet3").removeClass("p1");
+			$("#performance_Internet3").addClass("p1_no");
+		}
+		$.ajax({
+					type:"post",
+					url:"http://localhost:9999/insertInterenetInfo",
+					dataType: "jsonp",
+					jsonp:"internetchaxun",
+					jsonpCallback: "success_jsonpCallback",
+					data:{
+						"tphone":$("#phone4").val(),
+						"taoBao":$("#taobao4").val(),
+						"taoPasd":$("#taopasd4").val(),
+						"jingDong":$("#jingdong4").val(),
+						"jPasd":$("#jpasd4").val()
+					},
+					success:function(data){
+						
+					},
+					error: function(jqXHR){      
+		      	    },     
+				});
+		zonggongchaxun();
+	}
+
+
+
+
+  setInterval(zonggongchaxun,100);
+   //已选模块完成度
+  function zonggongchaxun(){
+		var inputNum =6;
+		if ($("#driver6").prop("checked")) {
+			inputNum=inputNum+2;
+         }
+         if ($("#weizhang6").prop("checked")) {
+			inputNum=inputNum+4;
+         }
+         if ($("#Internet3").prop("checked")) {
+			inputNum=inputNum+5;
+         }
+         if ($("#flat-checkbox-0").prop("checked")) {
+		   inputNum--;
+         }
+         if($("#Internet3").prop("checked")&&$("#showtaobao4").prop("checked")){
+           inputNum--;
+         }
+          if($("#Internet3").prop("checked")&&$("#showtaopasd4").prop("checked")){
+           inputNum--;
+         }
+          if($("#Internet3").prop("checked")&&$("#showjingdong4").prop("checked")){
+           inputNum--;
+         }
+          if($("#Internet3").prop("checked")&&$("#showjpsd4").prop("checked")){
+           inputNum--;
+         }
+		var proportion = Math.ceil(100/inputNum);
+		var all_inforperformances = 0;
+
+        if ($("#driver6").prop("checked")) {
+			if ($("#carnumber0").val().length != 0 && $("#carnumber0").val()!="") {
+			all_inforperformances +=proportion;
+		}
+		if ($("#vehicletype0").val().length != 0 && $("#vehicletype0").val()!="") {
+			all_inforperformances +=proportion;
+		}
+         }
+        
+       if ($("#weizhang6").prop("checked")) {
+	       	if ($("#vcarnumber3").val().length != 0 && $("#vcarnumber3").val()!="") {
+				all_inforperformances +=proportion;
+			}
+			if ($("#vvehicletype3").val().length != 0 && $("#vvehicletype3").val()!="") {
+				all_inforperformances +=proportion;
+			}
+			if ($("#vin3").val().length != 0 && $("#vin3").val()!="") {
+				all_inforperformances +=proportion;
+			}
+			if ($("#engine3").val().length != 0 && $("#engine3").val()!="") {
+				all_inforperformances +=proportion;
+			}
+			
+        }
+
+        if ($("#Internet3").prop("checked")) {
+        	if ($("#phone4").val().length != 0 && $("#phone4").val()!="") {
+			all_inforperformances += proportion;
+			
+		} 
+		if(!$("#showtaobao4").prop("checked")&&$("#taobao4").val().length!=0 && $("#taobao4").val()!=""){
+			all_inforperformances += proportion;
+		}
+		if(!$("#showtaopasd4").prop("checked")&&$("#taopasd4").val().length!=0 && $("#taopasd4").val()!=""){
+			all_inforperformances += proportion;
+		}
+		if(!$("#showjingdong4").prop("checked") &&($("#jingdong4").val().length!=0 && $("#jingdong4").val()!="")){
+			all_inforperformances += proportion;
+		}
+		if(!$("#showjpsd4").prop("checked")&&($("#jpasd4").val().length!=0 && $("#jpasd4").val()!="")){
+			all_inforperformances += proportion;
+		}
+			
+         }
+
+
+         if ($("#xuewei_select").val().length != 0 && $("#xuewei_select").val()!="请选择" && $("#xuewei_select").val()!=""){
+			all_inforperformances += proportion;
+			
+		    } 
+		if($("#inschooltime").val().length!=0 && $("#inschooltime").val()!=""){
+			all_inforperformances += proportion;
+		}
+		if($("#exampleInputxuewei").val().length!=0 && $("#exampleInputxuewei").val()!=""){
+			all_inforperformances += proportion;
+		}
+		if(!$("#flat-checkbox-0").prop("checked") &&($("#exampleInputxuehao").val().length!=0 && $("#exampleInputxuehao").val()!="")){
+			all_inforperformances += proportion;
+		}
+
+		if ($("#examplebank").val().length != 0 && $("#examplebank").val()!="") {
+			all_inforperformances += proportion;
+		}
+		if ($("#phone1").val().length != 0 && $("#phone1").val()!="") {
+			all_inforperformances += proportion;
+		}
+		
+		if(all_inforperformances>= 100){
+			if ($("#driver6").prop("checked")) {
+                if ($.trim($("#performance_drive").html())!="100%") {
+            $("#all_inforperformance").text(97+"%");
+			$("#all_inforperformance").removeClass("p1");
+			$("#all_inforperformance").addClass("p1_no");
+			$("#buttonnext").attr("disabled","true");
+                }else{
+             $("#all_inforperformance").text("100%");
+			$("#all_inforperformance").removeClass("p1_no");
+			$("#all_inforperformance").addClass("p1");
+			$("#buttonnext").removeAttr("disabled");
+                }
+			}else{
+			$("#all_inforperformance").text("100%");
+			$("#all_inforperformance").removeClass("p1_no");
+			$("#all_inforperformance").addClass("p1");
+			$("#buttonnext").removeAttr("disabled");
+			}
+			
+
+		}else{
+			$("#all_inforperformance").text(all_inforperformances+"%");
+			$("#all_inforperformance").removeClass("p1");
+			$("#all_inforperformance").addClass("p1_no");
+			$("#buttonnext").attr("disabled","true");
+		}
+}
+
+
+
+
+
+
+//集中输入改变局部输入
+function all_infor(){
+		 xueweichaxun();
+		 bankchaxun();
+		 phonechaxun();
+		 driver();
+		 violation();
+		 internetchaxun();
+		 zonggongchaxun();
+}
+	
+
+
+
+
+
+
+
+
+
+
+	function formatBankNo (BankNo){
+    if (BankNo.value == "") return;
+    var account = new String (BankNo.value);
+    account = account.substring(0,22); /*帐号的总数, 包括空格在内 */
+    if (account.match (".[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}") == null){
+        /* 对照格式 */
+        if (account.match (".[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}|" + ".[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}|" +
+        ".[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}|" + ".[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}") == null){
+            var accountNumeric = accountChar = "", i;
+            for (i=0;i<account.length;i++){
+                accountChar = account.substr (i,1);
+                if (!isNaN (accountChar) && (accountChar != " ")) accountNumeric = accountNumeric + accountChar;
+            }
+            account = "";
+            for (i=0;i<accountNumeric.length;i++){    /* 可将以下空格改为-,效果也不错 */
+                if (i == 4) account = account + " "; /* 帐号第四位数后加空格 */
+                if (i == 8) account = account + " "; /* 帐号第八位数后加空格 */
+                if (i == 12) account = account + " ";/* 帐号第十二位后数后加空格 */
+                account = account + accountNumeric.substr (i,1)
+            }
+        }
+    }
+    else
+    {
+        account = " " + account.substring (1,5) + " " + account.substring (6,10) + " " + account.substring (14,18) + "-" + account.substring(18,25);
+    }
+    if (account != BankNo.value) BankNo.value = account;
+    if (BankNo.value.length == 22) {
+    	BankNo.style.borderColor = '#b2a8fd';
+    }else{
+    	BankNo.style.borderColor = 'red';
+    }
+}
+
+
+function formatphone (phone){
+	    var tel=phone.value;
+		var telReg = !!tel.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/);
+		if(telReg){
+			phone.style.borderColor = '#b2a8fd';
+			$(":button").removeAttr("disabled");
+		}else{
+			phone.style.borderColor = 'red';
+			$(":button").attr("disabled","true");
+		}
+}
+
+
+
+
+//集中输入
+function showAllModal(){
+     //如果为100%就不显示
+    if ($.trim($("#performance_communication").html())=="100%") {
+     	$("#tongxun_information").css('display','none');
+     }else{
+     	$("#tongxun_information").css('display','block');
+     }
+
+    if ($.trim($("#performance_bank").html())=="100%") {
+     	$("#bank_information").css('display','none');
+     }else{
+     	$("#bank_information").css('display','block');
+     }
+
+
+    if ($.trim($("#performance_xueli").html())=="100%") {
+     	$("#xueli_information").css('display','none');
+     }else{
+     	if($("#xuewei_select3").val().length!=0 && $("#xuewei_select3").val()!=""){
+			$("#xuewei10").css('display','none');
+		}
+		if($("#inschooltime3").val().length!=0 && $("#inschooltime3").val()!=""){
+			$("#inschooltime10").css('display','none');
+		}else{
+			$("#inschooltime10").css('display','block');
+		}
+		if($("#exampleInputxuewei3").val().length!=0 && $("#exampleInputxuewei3").val()!=""){
+			$("#exampleInputxuewei10").css('display','none');
+		}else{
+			$("#exampleInputxuewei10").css('display','block');
+		}
+		if($("#flat-checkbox-0").prop("checked")||($("#exampleInputxuehao3").val().length!=0 && $("#exampleInputxuehao3").val()!="")){
+			$("#exampleInputxuehao10").css('display','none');
+		}else{
+			$("#exampleInputxuehao10").css('display','block');
+		}
+     	$("#xueli_information").css('display','block');
+     }
+
+
+	if (!$("#driver6").prop("checked")) {
+			$("#xinshi_information").css('display','none');
+       }else
+       {
+         if ($.trim($("#performance_drive").html())=="100%") {
+     	     $("#xinshi_information").css('display','none');
+        }else{
+         if($("#carnumber6").val().length!=0 && $("#carnumber6").val()!=""){
+			$("#carnumber10").css('display','none');
+		    }else{
+		    	$("#carnumber10").css('display','block');
+		    }
+		  if($("#vehicletype6").val().length!=0 && $("#vehicletype6").val()!=""){
+			$("#vehicletype10").css('display','none');
+		   }else{
+		   	$("#vehicletype10").css('display','block');
+		   }
+     	   $("#xinshi_information").css('display','block');
+           }
+        }
+
+
+    if (!$("#weizhang6").prop("checked")) {
+			$("#weizhang_information").css('display','none');
+       }else
+        {
+         if ($.trim($("#performance_violation").html())=="100%") {
+     	     $("#weizhang_information").css('display','none');
+          }else{
+
+         if($("#vcarnumber7").val().length!=0 && $("#vcarnumber7").val()!=""){
+			$("#vcarnumber10").css('display','none');
+		    }else{
+		    $("#vcarnumber10").css('display','block');
+		    }
+		 if($("#vvehicletype7").val()!=""){
+			$("#vvehicletype10").css('display','none');
+		    }else{
+		    $("#vvehicletype10").css('display','block');	
+		    }
+		 if($("#vin7").val().length!=0 && $("#vin7").val()!=""){
+			$("#vin10").css('display','none');
+		    }else{
+		    $("#vin10").css('display','block');	
+		    }
+		 if($("#engine7").val().length!=0 && $("#engine7").val()!=""){
+			$("#engine10").css('display','none');
+		    }else{
+		    	$("#engine10").css('display','block');
+		    }
+     	   $("#weizhang_information").css('display','block');
+           }
+         }
+
+    if (!$("#Internet3").prop("checked")) {
+			$("#Internet_information").css('display','none');
+      }else
+       {
+         if ($.trim($("#performance_Internet3").html())=="100%") {
+     	     $("#Internet_information").css('display','none');
+          }else{
+          	if($("#phone1").val().length!=0 && $("#phone1").val()!=""){
+			$("#phone10").css('display','none');
+		    }else{
+		    $("#phone10").css('display','block');
+		    }
+		 if($("#showtaobao4").prop("checked")||($("#taobao5").val().length!=0 && $("#taobao5").val()!="")){
+			$("#taobao10").css('display','none');
+		    }else{
+		    	$("#taobao10").css('display','block');
+		    }
+		 if($("#showtaopasd4").prop("checked")||($("#taopasd5").val().length!=0 && $("#taopasd5").val()!="")){
+			$("#taopasd10").css('display','none');
+		    }else{
+		    	$("#taopasd10").css('display','block');
+		    }
+		    if($("#showjingdong4").prop("checked")||($("#jingdong5").val().length!=0 && $("#jingdong5").val()!="")){
+			$("#jingdong10").css('display','none');
+		    }else{
+		    	$("#jingdong10").css('display','block');
+		    }
+		 if($("#showjpsd4").prop("checked")||($("#jpasd5").val().length!=0 && $("#jpasd5").val()!="")){
+			$("#jpasd10").css('display','none');
+		    }else{
+		    	$("#jpasd10").css('display','block');
+		    }
+     	   $("#Internet_information").css('display','block');
+           }
+        }
+
+
+    if($("#showAllModal_div").hasClass("btn-credit_bor")) {
+		$("#showAllModal_div").removeClass("btn-credit_bor");
+		$("#showAllModal_div").addClass("btn-credit");
+		$("#all_infor").modal('show');
+		$("#all_infor").on("hide.bs.modal",function(e){//为modal添加隐藏后执行事件
+				$("#showAllModal_div").removeClass("btn-credit");
+				$("#showAllModal_div").addClass("btn-credit_bor");
+		});
+	}
+}
+
+
+
+
+
+$(function(){
+	$(".modal-content").draggable({
+		cursor: "move",
+//		handle: '.modal-header'
+	});
+}); 
+function tiaoguo() {
+	$.ajax({
+		url: "http://localhost:9999/tiaoguo",
+		dataType: "jsonp",
+		jsonp: "tiaoguo",
+		jsonpCallback: "success_jsonpCallback",
+		data: {
+							
+		},
+		success: function(data) {
+			window.location.href = "generateReport.html";
+		},
+		error: function(data) {
+			window.location.href = "generateReport.html";
+		}
+	});
+						
+						
+}
+
+function infor(){
+	var gRengInfo= $("#flat-checkbox-1").prop("checked")? 1 : 0;//个人工商法
+	var dKuanInfo = $("#flat-checkbox-2").prop("checked")? 1 : 0;//贷款信息查询
+	var xinshiInfo = $("#driver6").prop("checked")? 1 : 0;//行驶证查询
+	var weizhangInfo = $("#weizhang6").prop("checked")? 1 : 0;// 违章查询
+	var feixinInfo = $("#flat-checkbox-5").prop("checked")? 1 : 0;// 飞行情况核查
+	var hulianInfo = $("#Internet3").prop("checked")? 1 : 0;//互联网信息查询
+	$.ajax({
+					type:"post",
+					url:"http://localhost:9999/insertTUserModel",
+					dataType: "jsonp",
+					jsonp:"infor",
+					jsonpCallback: "success_jsonpCallback",
+					data:{
+						"daiKjd":$("#basic1").val(),
+						"productName":$("#basic2").val(),
+						"gRengInfo":gRengInfo,
+						"dKuanInfo":dKuanInfo,
+						"xinshiInfo":xinshiInfo,
+						"weizhangInfo":weizhangInfo,
+						"feixinInfo":feixinInfo,
+						"hulianInfo":hulianInfo
+						
+					},
+					success:function(data){
+						all_infor();
+						tiaoguo();
+						
+						
+					},
+					error: function(jqXHR){
+			           	
+		      	    },     
+				});
+
+}
+
+      </script>
+	
+	<script src="js/angular-1.3.0.js"></script>
+    <script src="js/select_model.js"></script>
+    <script src="../dist/js/login/report.js" type="text/javascript"></script>
+	</body>
+</html>

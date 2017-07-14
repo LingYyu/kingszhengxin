@@ -1,0 +1,51 @@
+/**
+ * 用户名
+ */
+
+#username-msg {
+    color: red;
+}
+
+
+/**
+ * 密码
+ */
+
+#passwd-msg {
+    color: red;
+}
+
+
+/**
+ * 验证码
+ */
+
+#check-msg {
+    color: red;
+    /*float: left;*/
+}
+
+
+/**
+ * 验证输入框
+ */
+
+.page {
+    width: 35px;
+    display: inline-block;
+    box-sizing: content-box;
+    padding: 5px 10px;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 8px;
+    font: normal 16px/normal "Times New Roman", Times, serif;
+    color: rgba(0, 142, 198, 1);
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(252, 252, 252, 1);
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+}

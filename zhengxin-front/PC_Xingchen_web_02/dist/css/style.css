@@ -1,0 +1,200 @@
+﻿/* my style
+   author:jingjing
+   time:2016/07/22
+ */
+@charset "UTF-8";
+/* 公共部分 */
+*{ margin:0; padding:0;}
+body { padding-bottom:49px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;background:url('../images/bg.gif') repeat;font-size: 14px;}
+body.active{background:transparent;}
+ul,ol{ margin:0; list-style:none;}
+a{ color:#155faa; text-decoration:none; cursor:pointer;}
+a:hover,a:active{ color:#499ef3; text-decoration:none;}
+h1,h2,h3,h4,h5,h6{ font-size:100%;}
+textarea{ resize:none;}
+a{ outline:none;}
+input[type="text"],input[type="password"],textarea{-webkit-appearance:none;}
+.home_bg{background:url('../images/con_bg.jpg') no-repeat; background-size:100%;}
+.table-responsive .table-striped{ background:#fff;}
+.input_text{height:26px; line-height:26px;color: #555; font-size: 14px;margin: 0px 20px; text-align:center; background-color: #fff;border: 1px solid #ccc;
+    border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;}
+/* 登录界面 */
+.form-signin{ max-width:330px; padding:15px; margin:0 auto; background:#fff;}
+.form-signin .from-signin-heading{margin-bottom: 25px;font-size: 20px;color: #666; text-align:center; color:#4a6fca; font-weight:700;}
+.form-signin .form-control{ position:relative; height:auto;-webkit-box-sizing:border-box; -moz-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;padding:10px; font-size:16px;}
+.form-signin .form-control:focus{ z-index:2;}
+.form-signin input[type="name"],.form-signin input[type="password"],.form-signin input[type="code"]{ margin-bottom:15px;}
+.form-signin input[type="code"]{ max-width:150px; float:left;}
+.form-signin .btn{height: 40px;line-height: 40px;padding: 0;font-size: 16px;border: none;background-color: #66b7ff;}
+/* 验证码 */
+.code_img{ background:#fff;font-family:Arial;font-style:italic;color:#155faa;font-size:18px;border:0;padding:2px 3px;letter-spacing:3px;font-weight:bolder;  float:right;cursor:pointer; width:100px;height:40px;line-height:40px;text-align:center;vertical-align:middle;margin: 0 5px;}
+.code_p{float: right;font-size: 14px;height: 50px;line-height: 50px;text-align: right; padding-right:10px;}
+
+/* 首页 */
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+/*
+ * Main content
+ */
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+/*
+ * Global add-ons
+ */
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+/*
+ * Sidebar
+ */
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #131b26;
+    border-right: 1px solid #eee;
+  }
+}
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+/*
+ * Main content
+ */
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+/*
+ * Placeholder dashboard ideas
+ */
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+/* 树形菜单 */
+.sidebar .nav-sidebar {
+    cursor: pointer;
+}
+.sidebar .nav-sidebar .icon_r
+{
+    float:right;
+       width: 12px;
+    margin-right: 5px;
+}
+/* 头部 */
+.navbar-inverse{ background:#006cb7; color:#fff;}
+.navbar-header .navbar-brand{ background:#004799; color:#fff;}
+.navbar-header .navbar-brand:hover,.navbar-brand:active{ color:#fff;background:#004799; text-decoration:none;}
+.navbar-collapse .nav .btn_exit{ background:#0288e9; color:#fff;}
+.navbar-collapse .nav .btn_exit:hover,.navbar-collapse .nav .btn_exit:active{ background:#0288e9; color:#fff;text-decoration:none;}
+.navbar-collapse .nav li a{ color:#fff;}
+.nav-sidebar li a{ color:#fff;}
+.nav-sidebar li a:hover,.nav-sidebar li a:active{ color:#428bca;}
+.nav-sidebar li a span{ padding:0 10px;}
+/* 左侧 */
+.nav_m_l_20{}
+.nav_m_l_20 a span{ margin-left:40px;}
+
+/*  内容标题 */
+.main .page-header{height: 4em;background: #fff;padding: 10px;margin: 10px 0;}
+.main .page-header_2{background: #fff;padding: 10px;margin: 10px 0;}
+/* 分页 */
+.nav_page{background: #fff;border-top: 1px solid #ebebeb;color: #505050;line-height:2.6em;display: block;padding: 0 10px; }
+.nav_page .pull-left{ font-size:14px; padding:5px 0;}
+.nav_page .pull-left span{}
+.nav_page .pull-left .select_page{width:50px;}
+
+/* 模块类型 */
+.select_month .dropdown{float: right;margin: 1em;}
+.select_month .dropdown ul{ width:200px;}
+.select_month .dropdown ul li{ padding:0 10px;}
+
+/* 基侧树形结构css */
+.treeview_css{margin-right: -21px;margin-bottom: 20px;margin-left: -20px;cursor: pointer;}
+.treeview_css ul li{ margin-bottom: 10px;}
+.treeview_css ul li .expand-icon,.treeview_css ul li .collapse-icon{float: right;}
+.treeview_css ul li .node-icon{right:5px;}
+
+/* 产品标题 */
+.header_title{ text-align: center; font-size: 18px; font-weight: 700; line-height: 2.6em;}
+.header_title a{font-weight:normal;}

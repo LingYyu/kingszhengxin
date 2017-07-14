@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.fbf.dao.TUserBillingInformationMapper" >
+  <resultMap id="BaseResultMap" type="com.newtouch.fbf.entity.TUserBillingInformation" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="Business_information" property="businessInformation" jdbcType="VARCHAR" />
+    <result column="Business_type" property="businessType" jdbcType="VARCHAR" />
+    <result column="billing_stardate" property="billingStardate" jdbcType="TIMESTAMP" />
+    <result column="billing_enddate" property="billingEnddate" jdbcType="TIMESTAMP" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="payment_status" property="paymentStatus" jdbcType="BIT" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="recharge" property="recharge" jdbcType="DECIMAL" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="driving_times" property="drivingTimes" jdbcType="INTEGER" />
+    <result column="driving_price" property="drivingPrice" jdbcType="INTEGER" />
+    <result column="car_times" property="carTimes" jdbcType="INTEGER" />
+    <result column="car_price" property="carPrice" jdbcType="INTEGER" />
+    <result column="fly_times" property="flyTimes" jdbcType="INTEGER" />
+    <result column="fly_price" property="flyPrice" jdbcType="INTEGER" />
+    <result column="edu_times" property="eduTimes" jdbcType="INTEGER" />
+    <result column="edu_price" property="eduPrice" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, Business_information, Business_type, billing_stardate, billing_enddate, amount, 
+    payment_status, balance, recharge, money, driving_times, driving_price, car_times, 
+    car_price, fly_times, fly_price, edu_times, edu_price, create_time, update_time, 
+    create_user, update_user
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.newtouch.fbf.entity.TUserBillingInformationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_billing_information
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_billing_information
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  
+  
+  
+  <!--根据IdCard查找列表按出账时间倒序显示已出账单  -->
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_user_billing_information order by billing_enddate desc
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_user_billing_information
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.newtouch.fbf.entity.TUserBillingInformationExample" >
+    delete from t_user_billing_information
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.fbf.entity.TUserBillingInformation" >
+    insert into t_user_billing_information (id, Business_information, Business_type, 
+      billing_stardate, billing_enddate, amount, 
+      payment_status, balance, recharge, 
+      money, driving_times, driving_price, 
+      car_times, car_price, fly_times, 
+      fly_price, edu_times, edu_price, 
+      create_time, update_time, create_user, 
+      update_user)
+    values (#{id,jdbcType=CHAR}, #{businessInformation,jdbcType=VARCHAR}, #{businessType,jdbcType=TIMESTAMP}, 
+      #{billingStardate,jdbcType=VARCHAR}, #{billingEnddate,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{paymentStatus,jdbcType=BIT}, #{balance,jdbcType=DECIMAL}, #{recharge,jdbcType=DECIMAL}, 
+      #{money,jdbcType=DECIMAL}, #{drivingTimes,jdbcType=INTEGER}, #{drivingPrice,jdbcType=INTEGER}, 
+      #{carTimes,jdbcType=INTEGER}, #{carPrice,jdbcType=INTEGER}, #{flyTimes,jdbcType=INTEGER}, 
+      #{flyPrice,jdbcType=INTEGER}, #{eduTimes,jdbcType=INTEGER}, #{eduPrice,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.fbf.entity.TUserBillingInformation" >
+    insert into t_user_billing_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessInformation != null" >
+        Business_information,
+      </if>
+      <if test="businessType != null" >
+        Business_type,
+      </if>
+      <if test="billingStardate != null" >
+        billing_stardate,
+      </if>
+      <if test="billingEnddate != null" >
+        billing_enddate,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="paymentStatus != null" >
+        payment_status,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="recharge != null" >
+        recharge,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="drivingTimes != null" >
+        driving_times,
+      </if>
+      <if test="drivingPrice != null" >
+        driving_price,
+      </if>
+      <if test="carTimes != null" >
+        car_times,
+      </if>
+      <if test="carPrice != null" >
+        car_price,
+      </if>
+      <if test="flyTimes != null" >
+        fly_times,
+      </if>
+      <if test="flyPrice != null" >
+        fly_price,
+      </if>
+      <if test="eduTimes != null" >
+        edu_times,
+      </if>
+      <if test="eduPrice != null" >
+        edu_price,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="businessInformation != null" >
+        #{businessInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billingStardate != null" >
+        #{billingStardate,jdbcType=VARCHAR},
+      </if>
+      <if test="billingEnddate != null" >
+        #{billingEnddate,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentStatus != null" >
+        #{paymentStatus,jdbcType=BIT},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null" >
+        #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="drivingTimes != null" >
+        #{drivingTimes,jdbcType=INTEGER},
+      </if>
+      <if test="drivingPrice != null" >
+        #{drivingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="carTimes != null" >
+        #{carTimes,jdbcType=INTEGER},
+      </if>
+      <if test="carPrice != null" >
+        #{carPrice,jdbcType=INTEGER},
+      </if>
+      <if test="flyTimes != null" >
+        #{flyTimes,jdbcType=INTEGER},
+      </if>
+      <if test="flyPrice != null" >
+        #{flyPrice,jdbcType=INTEGER},
+      </if>
+      <if test="eduTimes != null" >
+        #{eduTimes,jdbcType=INTEGER},
+      </if>
+      <if test="eduPrice != null" >
+        #{eduPrice,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.newtouch.fbf.entity.TUserBillingInformationExample" resultType="java.lang.Integer" >
+    select count(*) from t_user_billing_information
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_user_billing_information
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.businessInformation != null" >
+        Business_information = #{record.businessInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessType != null" >
+        Business_type = #{record.businessType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.billingStardate != null" >
+        billing_stardate = #{record.billingStardate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billingEnddate != null" >
+        billing_enddate = #{record.billingEnddate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paymentStatus != null" >
+        payment_status = #{record.paymentStatus,jdbcType=BIT},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.recharge != null" >
+        recharge = #{record.recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.drivingTimes != null" >
+        driving_times = #{record.drivingTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.drivingPrice != null" >
+        driving_price = #{record.drivingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.carTimes != null" >
+        car_times = #{record.carTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.carPrice != null" >
+        car_price = #{record.carPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.flyTimes != null" >
+        fly_times = #{record.flyTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.flyPrice != null" >
+        fly_price = #{record.flyPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.eduTimes != null" >
+        edu_times = #{record.eduTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.eduPrice != null" >
+        edu_price = #{record.eduPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUser != null" >
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user_billing_information
+    set id = #{record.id,jdbcType=CHAR},
+      Business_information = #{record.businessInformation,jdbcType=VARCHAR},
+      Business_type = #{record.businessType,jdbcType=TIMESTAMP},
+      billing_stardate = #{record.billingStardate,jdbcType=VARCHAR},
+      billing_enddate = #{record.billingEnddate,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      payment_status = #{record.paymentStatus,jdbcType=BIT},
+      balance = #{record.balance,jdbcType=DECIMAL},
+      recharge = #{record.recharge,jdbcType=DECIMAL},
+      money = #{record.money,jdbcType=DECIMAL},
+      driving_times = #{record.drivingTimes,jdbcType=INTEGER},
+      driving_price = #{record.drivingPrice,jdbcType=INTEGER},
+      car_times = #{record.carTimes,jdbcType=INTEGER},
+      car_price = #{record.carPrice,jdbcType=INTEGER},
+      fly_times = #{record.flyTimes,jdbcType=INTEGER},
+      fly_price = #{record.flyPrice,jdbcType=INTEGER},
+      edu_times = #{record.eduTimes,jdbcType=INTEGER},
+      edu_price = #{record.eduPrice,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      update_user = #{record.updateUser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.fbf.entity.TUserBillingInformation" >
+    update t_user_billing_information
+    <set >
+      <if test="businessInformation != null" >
+        Business_information = #{businessInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        Business_type = #{businessType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billingStardate != null" >
+        billing_stardate = #{billingStardate,jdbcType=VARCHAR},
+      </if>
+      <if test="billingEnddate != null" >
+        billing_enddate = #{billingEnddate,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentStatus != null" >
+        payment_status = #{paymentStatus,jdbcType=BIT},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null" >
+        recharge = #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="drivingTimes != null" >
+        driving_times = #{drivingTimes,jdbcType=INTEGER},
+      </if>
+      <if test="drivingPrice != null" >
+        driving_price = #{drivingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="carTimes != null" >
+        car_times = #{carTimes,jdbcType=INTEGER},
+      </if>
+      <if test="carPrice != null" >
+        car_price = #{carPrice,jdbcType=INTEGER},
+      </if>
+      <if test="flyTimes != null" >
+        fly_times = #{flyTimes,jdbcType=INTEGER},
+      </if>
+      <if test="flyPrice != null" >
+        fly_price = #{flyPrice,jdbcType=INTEGER},
+      </if>
+      <if test="eduTimes != null" >
+        edu_times = #{eduTimes,jdbcType=INTEGER},
+      </if>
+      <if test="eduPrice != null" >
+        edu_price = #{eduPrice,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.fbf.entity.TUserBillingInformation" >
+    update t_user_billing_information
+    set Business_information = #{businessInformation,jdbcType=VARCHAR},
+      Business_type = #{businessType,jdbcType=TIMESTAMP},
+      billing_stardate = #{billingStardate,jdbcType=VARCHAR},
+      billing_enddate = #{billingEnddate,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      payment_status = #{paymentStatus,jdbcType=BIT},
+      balance = #{balance,jdbcType=DECIMAL},
+      recharge = #{recharge,jdbcType=DECIMAL},
+      money = #{money,jdbcType=DECIMAL},
+      driving_times = #{drivingTimes,jdbcType=INTEGER},
+      driving_price = #{drivingPrice,jdbcType=INTEGER},
+      car_times = #{carTimes,jdbcType=INTEGER},
+      car_price = #{carPrice,jdbcType=INTEGER},
+      fly_times = #{flyTimes,jdbcType=INTEGER},
+      fly_price = #{flyPrice,jdbcType=INTEGER},
+      edu_times = #{eduTimes,jdbcType=INTEGER},
+      edu_price = #{eduPrice,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

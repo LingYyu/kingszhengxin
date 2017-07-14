@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.fbf.dao.TUserLoanInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.newtouch.fbf.entity.TUserLoanInfo" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="business_type" property="businessType" jdbcType="CHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="borrow_date" property="borrowDate" jdbcType="TIMESTAMP" />
+    <result column="borrow_contractno" property="borrowContractno" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="purpose" property="purpose" jdbcType="VARCHAR" />
+    <result column="borrow_type" property="borrowType" jdbcType="VARCHAR" />
+    <result column="contact_address" property="contactAddress" jdbcType="VARCHAR" />
+    <result column="borrow_status" property="borrowStatus" jdbcType="BIT" />
+    <result column="contactless" property="contactless" jdbcType="BIT" />
+    <result column="instalment_again" property="instalmentAgain" jdbcType="BIT" />
+    <result column="instalment_amount" property="instalmentAmount" jdbcType="DECIMAL" />
+    <result column="monthly_repay" property="monthlyRepay" jdbcType="DECIMAL" />
+    <result column="salary" property="salary" jdbcType="DECIMAL" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="company_type" property="companyType" jdbcType="VARCHAR" />
+    <result column="primary_reject" property="primaryReject" jdbcType="BIT" />
+    <result column="chect" property="chect" jdbcType="BIT" />
+    <result column="reject_time" property="rejectTime" jdbcType="TIMESTAMP" />
+    <result column="reject_amount" property="rejectAmount" jdbcType="DECIMAL" />
+    <result column="extension" property="extension" jdbcType="BIT" />
+    <result column="capital_debt" property="capitalDebt" jdbcType="BIT" />
+    <result column="longterm_arrear" property="longtermArrear" jdbcType="INTEGER" />
+    <result column="guarantee_repay" property="guaranteeRepay" jdbcType="INTEGER" />
+    <result column="overdue" property="overdue" jdbcType="INTEGER" />
+    <result column="overdue_days" property="overdueDays" jdbcType="VARCHAR" />
+    <result column="other_infos" property="otherInfos" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+    <result column="submitter" property="submitter" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_type, id_card, borrow_date, borrow_contractno, period, amount, phone, 
+    purpose, borrow_type, contact_address, borrow_status, contactless, instalment_again, 
+    instalment_amount, monthly_repay, salary, company_address, company_type, primary_reject, 
+    chect, reject_time, reject_amount, extension, capital_debt, longterm_arrear, guarantee_repay, 
+    overdue, overdue_days, other_infos, remark, create_time, update_time, create_user, 
+    update_user, is_delete, submitter
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.newtouch.fbf.entity.TUserLoanInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_loan_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_loan_info
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  
+  <!-- 根据身份证号查找提交人和提交时间 -->
+  <select id="selectSubmitterAndCreateTimeByIdCard" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from t_user_loan_info
+    where id_card = #{idCard,jdbcType=VARCHAR} order by create_time desc
+  </select>
+  
+   <!-- 根据身份证号查找贷款信息 -->
+  <select id="selectAllByIdCard" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_user_loan_info  where id_card = #{idCard,jdbcType=VARCHAR} 
+  </select>
+  
+  <!-- 根据提交时间查找报告 -->
+  <select id="selectAllByCreateTime" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_user_loan_info  where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_user_loan_info
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.newtouch.fbf.entity.TUserLoanInfoExample" >
+    delete from t_user_loan_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.fbf.entity.TUserLoanInfo" >
+    insert into t_user_loan_info (id, business_type, id_card, 
+      borrow_date, borrow_contractno, period, 
+      amount, phone, purpose, 
+      borrow_type, contact_address, borrow_status, 
+      contactless, instalment_again, instalment_amount, 
+      monthly_repay, salary, company_address, 
+      company_type, primary_reject, chect, 
+      reject_time, reject_amount, extension, 
+      capital_debt, longterm_arrear, guarantee_repay, 
+      overdue, overdue_days, other_infos, 
+      remark, create_time, update_time, 
+      create_user, update_user, is_delete, 
+      submitter)
+    values (#{id,jdbcType=CHAR}, #{businessType,jdbcType=CHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{borrowDate,jdbcType=TIMESTAMP}, #{borrowContractno,jdbcType=VARCHAR}, #{period,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DECIMAL}, #{phone,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, 
+      #{borrowType,jdbcType=VARCHAR}, #{contactAddress,jdbcType=VARCHAR}, #{borrowStatus,jdbcType=BIT}, 
+      #{contactless,jdbcType=BIT}, #{instalmentAgain,jdbcType=BIT}, #{instalmentAmount,jdbcType=DECIMAL}, 
+      #{monthlyRepay,jdbcType=DECIMAL}, #{salary,jdbcType=DECIMAL}, #{companyAddress,jdbcType=VARCHAR}, 
+      #{companyType,jdbcType=VARCHAR}, #{primaryReject,jdbcType=BIT}, #{chect,jdbcType=BIT}, 
+      #{rejectTime,jdbcType=TIMESTAMP}, #{rejectAmount,jdbcType=DECIMAL}, #{extension,jdbcType=BIT}, 
+      #{capitalDebt,jdbcType=BIT}, #{longtermArrear,jdbcType=INTEGER}, #{guaranteeRepay,jdbcType=INTEGER}, 
+      #{overdue,jdbcType=INTEGER}, #{overdueDays,jdbcType=VARCHAR}, #{otherInfos,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{isDelete,jdbcType=VARCHAR}, 
+      #{submitter,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.fbf.entity.TUserLoanInfo" >
+    insert into t_user_loan_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="borrowDate != null" >
+        borrow_date,
+      </if>
+      <if test="borrowContractno != null" >
+        borrow_contractno,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="purpose != null" >
+        purpose,
+      </if>
+      <if test="borrowType != null" >
+        borrow_type,
+      </if>
+      <if test="contactAddress != null" >
+        contact_address,
+      </if>
+      <if test="borrowStatus != null" >
+        borrow_status,
+      </if>
+      <if test="contactless != null" >
+        contactless,
+      </if>
+      <if test="instalmentAgain != null" >
+        instalment_again,
+      </if>
+      <if test="instalmentAmount != null" >
+        instalment_amount,
+      </if>
+      <if test="monthlyRepay != null" >
+        monthly_repay,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+      <if test="companyAddress != null" >
+        company_address,
+      </if>
+      <if test="companyType != null" >
+        company_type,
+      </if>
+      <if test="primaryReject != null" >
+        primary_reject,
+      </if>
+      <if test="chect != null" >
+        chect,
+      </if>
+      <if test="rejectTime != null" >
+        reject_time,
+      </if>
+      <if test="rejectAmount != null" >
+        reject_amount,
+      </if>
+      <if test="extension != null" >
+        extension,
+      </if>
+      <if test="capitalDebt != null" >
+        capital_debt,
+      </if>
+      <if test="longtermArrear != null" >
+        longterm_arrear,
+      </if>
+      <if test="guaranteeRepay != null" >
+        guarantee_repay,
+      </if>
+      <if test="overdue != null" >
+        overdue,
+      </if>
+      <if test="overdueDays != null" >
+        overdue_days,
+      </if>
+      <if test="otherInfos != null" >
+        other_infos,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="submitter != null" >
+        submitter,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowDate != null" >
+        #{borrowDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowContractno != null" >
+        #{borrowContractno,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowType != null" >
+        #{borrowType,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddress != null" >
+        #{contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowStatus != null" >
+        #{borrowStatus,jdbcType=BIT},
+      </if>
+      <if test="contactless != null" >
+        #{contactless,jdbcType=BIT},
+      </if>
+      <if test="instalmentAgain != null" >
+        #{instalmentAgain,jdbcType=BIT},
+      </if>
+      <if test="instalmentAmount != null" >
+        #{instalmentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="monthlyRepay != null" >
+        #{monthlyRepay,jdbcType=DECIMAL},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null" >
+        #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="primaryReject != null" >
+        #{primaryReject,jdbcType=BIT},
+      </if>
+      <if test="chect != null" >
+        #{chect,jdbcType=BIT},
+      </if>
+      <if test="rejectTime != null" >
+        #{rejectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rejectAmount != null" >
+        #{rejectAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="extension != null" >
+        #{extension,jdbcType=BIT},
+      </if>
+      <if test="capitalDebt != null" >
+        #{capitalDebt,jdbcType=BIT},
+      </if>
+      <if test="longtermArrear != null" >
+        #{longtermArrear,jdbcType=INTEGER},
+      </if>
+      <if test="guaranteeRepay != null" >
+        #{guaranteeRepay,jdbcType=INTEGER},
+      </if>
+      <if test="overdue != null" >
+        #{overdue,jdbcType=INTEGER},
+      </if>
+      <if test="overdueDays != null" >
+        #{overdueDays,jdbcType=VARCHAR},
+      </if>
+      <if test="otherInfos != null" >
+        #{otherInfos,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="submitter != null" >
+        #{submitter,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.newtouch.fbf.entity.TUserLoanInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_user_loan_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_user_loan_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=CHAR},
+      </if>
+      <if test="record.idCard != null" >
+        id_card = #{record.idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowDate != null" >
+        borrow_date = #{record.borrowDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.borrowContractno != null" >
+        borrow_contractno = #{record.borrowContractno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.period != null" >
+        period = #{record.period,jdbcType=INTEGER},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purpose != null" >
+        purpose = #{record.purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowType != null" >
+        borrow_type = #{record.borrowType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactAddress != null" >
+        contact_address = #{record.contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowStatus != null" >
+        borrow_status = #{record.borrowStatus,jdbcType=BIT},
+      </if>
+      <if test="record.contactless != null" >
+        contactless = #{record.contactless,jdbcType=BIT},
+      </if>
+      <if test="record.instalmentAgain != null" >
+        instalment_again = #{record.instalmentAgain,jdbcType=BIT},
+      </if>
+      <if test="record.instalmentAmount != null" >
+        instalment_amount = #{record.instalmentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.monthlyRepay != null" >
+        monthly_repay = #{record.monthlyRepay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salary != null" >
+        salary = #{record.salary,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyAddress != null" >
+        company_address = #{record.companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyType != null" >
+        company_type = #{record.companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.primaryReject != null" >
+        primary_reject = #{record.primaryReject,jdbcType=BIT},
+      </if>
+      <if test="record.chect != null" >
+        chect = #{record.chect,jdbcType=BIT},
+      </if>
+      <if test="record.rejectTime != null" >
+        reject_time = #{record.rejectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rejectAmount != null" >
+        reject_amount = #{record.rejectAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.extension != null" >
+        extension = #{record.extension,jdbcType=BIT},
+      </if>
+      <if test="record.capitalDebt != null" >
+        capital_debt = #{record.capitalDebt,jdbcType=BIT},
+      </if>
+      <if test="record.longtermArrear != null" >
+        longterm_arrear = #{record.longtermArrear,jdbcType=INTEGER},
+      </if>
+      <if test="record.guaranteeRepay != null" >
+        guarantee_repay = #{record.guaranteeRepay,jdbcType=INTEGER},
+      </if>
+      <if test="record.overdue != null" >
+        overdue = #{record.overdue,jdbcType=INTEGER},
+      </if>
+      <if test="record.overdueDays != null" >
+        overdue_days = #{record.overdueDays,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherInfos != null" >
+        other_infos = #{record.otherInfos,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUser != null" >
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="record.submitter != null" >
+        submitter = #{record.submitter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user_loan_info
+    set id = #{record.id,jdbcType=CHAR},
+      business_type = #{record.businessType,jdbcType=CHAR},
+      id_card = #{record.idCard,jdbcType=VARCHAR},
+      borrow_date = #{record.borrowDate,jdbcType=TIMESTAMP},
+      borrow_contractno = #{record.borrowContractno,jdbcType=VARCHAR},
+      period = #{record.period,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      purpose = #{record.purpose,jdbcType=VARCHAR},
+      borrow_type = #{record.borrowType,jdbcType=VARCHAR},
+      contact_address = #{record.contactAddress,jdbcType=VARCHAR},
+      borrow_status = #{record.borrowStatus,jdbcType=BIT},
+      contactless = #{record.contactless,jdbcType=BIT},
+      instalment_again = #{record.instalmentAgain,jdbcType=BIT},
+      instalment_amount = #{record.instalmentAmount,jdbcType=DECIMAL},
+      monthly_repay = #{record.monthlyRepay,jdbcType=DECIMAL},
+      salary = #{record.salary,jdbcType=DECIMAL},
+      company_address = #{record.companyAddress,jdbcType=VARCHAR},
+      company_type = #{record.companyType,jdbcType=VARCHAR},
+      primary_reject = #{record.primaryReject,jdbcType=BIT},
+      chect = #{record.chect,jdbcType=BIT},
+      reject_time = #{record.rejectTime,jdbcType=TIMESTAMP},
+      reject_amount = #{record.rejectAmount,jdbcType=DECIMAL},
+      extension = #{record.extension,jdbcType=BIT},
+      capital_debt = #{record.capitalDebt,jdbcType=BIT},
+      longterm_arrear = #{record.longtermArrear,jdbcType=INTEGER},
+      guarantee_repay = #{record.guaranteeRepay,jdbcType=INTEGER},
+      overdue = #{record.overdue,jdbcType=INTEGER},
+      overdue_days = #{record.overdueDays,jdbcType=VARCHAR},
+      other_infos = #{record.otherInfos,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      update_user = #{record.updateUser,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=VARCHAR},
+      submitter = #{record.submitter,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.fbf.entity.TUserLoanInfo" >
+    update t_user_loan_info
+    <set >
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowDate != null" >
+        borrow_date = #{borrowDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowContractno != null" >
+        borrow_contractno = #{borrowContractno,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowType != null" >
+        borrow_type = #{borrowType,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddress != null" >
+        contact_address = #{contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowStatus != null" >
+        borrow_status = #{borrowStatus,jdbcType=BIT},
+      </if>
+      <if test="contactless != null" >
+        contactless = #{contactless,jdbcType=BIT},
+      </if>
+      <if test="instalmentAgain != null" >
+        instalment_again = #{instalmentAgain,jdbcType=BIT},
+      </if>
+      <if test="instalmentAmount != null" >
+        instalment_amount = #{instalmentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="monthlyRepay != null" >
+        monthly_repay = #{monthlyRepay,jdbcType=DECIMAL},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="companyAddress != null" >
+        company_address = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null" >
+        company_type = #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="primaryReject != null" >
+        primary_reject = #{primaryReject,jdbcType=BIT},
+      </if>
+      <if test="chect != null" >
+        chect = #{chect,jdbcType=BIT},
+      </if>
+      <if test="rejectTime != null" >
+        reject_time = #{rejectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rejectAmount != null" >
+        reject_amount = #{rejectAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="extension != null" >
+        extension = #{extension,jdbcType=BIT},
+      </if>
+      <if test="capitalDebt != null" >
+        capital_debt = #{capitalDebt,jdbcType=BIT},
+      </if>
+      <if test="longtermArrear != null" >
+        longterm_arrear = #{longtermArrear,jdbcType=INTEGER},
+      </if>
+      <if test="guaranteeRepay != null" >
+        guarantee_repay = #{guaranteeRepay,jdbcType=INTEGER},
+      </if>
+      <if test="overdue != null" >
+        overdue = #{overdue,jdbcType=INTEGER},
+      </if>
+      <if test="overdueDays != null" >
+        overdue_days = #{overdueDays,jdbcType=VARCHAR},
+      </if>
+      <if test="otherInfos != null" >
+        other_infos = #{otherInfos,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="submitter != null" >
+        submitter = #{submitter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.fbf.entity.TUserLoanInfo" >
+    update t_user_loan_info
+    set business_type = #{businessType,jdbcType=CHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      borrow_date = #{borrowDate,jdbcType=TIMESTAMP},
+      borrow_contractno = #{borrowContractno,jdbcType=VARCHAR},
+      period = #{period,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      phone = #{phone,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      borrow_type = #{borrowType,jdbcType=VARCHAR},
+      contact_address = #{contactAddress,jdbcType=VARCHAR},
+      borrow_status = #{borrowStatus,jdbcType=BIT},
+      contactless = #{contactless,jdbcType=BIT},
+      instalment_again = #{instalmentAgain,jdbcType=BIT},
+      instalment_amount = #{instalmentAmount,jdbcType=DECIMAL},
+      monthly_repay = #{monthlyRepay,jdbcType=DECIMAL},
+      salary = #{salary,jdbcType=DECIMAL},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_type = #{companyType,jdbcType=VARCHAR},
+      primary_reject = #{primaryReject,jdbcType=BIT},
+      chect = #{chect,jdbcType=BIT},
+      reject_time = #{rejectTime,jdbcType=TIMESTAMP},
+      reject_amount = #{rejectAmount,jdbcType=DECIMAL},
+      extension = #{extension,jdbcType=BIT},
+      capital_debt = #{capitalDebt,jdbcType=BIT},
+      longterm_arrear = #{longtermArrear,jdbcType=INTEGER},
+      guarantee_repay = #{guaranteeRepay,jdbcType=INTEGER},
+      overdue = #{overdue,jdbcType=INTEGER},
+      overdue_days = #{overdueDays,jdbcType=VARCHAR},
+      other_infos = #{otherInfos,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=VARCHAR},
+      submitter = #{submitter,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

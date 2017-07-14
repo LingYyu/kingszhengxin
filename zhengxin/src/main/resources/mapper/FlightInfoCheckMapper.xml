@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.fbf.dao.FlightInfoCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.newtouch.fbf.entity.FlightInfoCheck" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="business_type" property="businessType" jdbcType="CHAR" />
+    <result column="report_code" property="reportCode" jdbcType="VARCHAR" />
+    <result column="flight_name" property="flightName" jdbcType="VARCHAR" />
+    <result column="flight_card" property="flightCard" jdbcType="VARCHAR" />
+    <result column="first_class" property="firstClass" jdbcType="VARCHAR" />
+    <result column="flight_times" property="flightTimes" jdbcType="VARCHAR" />
+    <result column="finally_arrived" property="finallyArrived" jdbcType="VARCHAR" />
+    <result column="year_fight_times" property="yearFightTimes" jdbcType="VARCHAR" />
+    <result column="economy_class" property="economyClass" jdbcType="VARCHAR" />
+    <result column="frequent_reach_city" property="frequentReachCity" jdbcType="VARCHAR" />
+    <result column="average_fare" property="averageFare" jdbcType="VARCHAR" />
+    <result column="total_flight" property="totalFlight" jdbcType="VARCHAR" />
+    <result column="memory_time" property="memoryTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_type, report_code, flight_name, flight_card, first_class, flight_times, 
+    finally_arrived, year_fight_times, economy_class, frequent_reach_city, average_fare, 
+    total_flight, memory_time, create_time, update_time, create_user, update_user, is_delete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.newtouch.fbf.entity.FlightInfoCheckExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flight_info_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from flight_info_check
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from flight_info_check
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.newtouch.fbf.entity.FlightInfoCheckExample" >
+    delete from flight_info_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.fbf.entity.FlightInfoCheck" >
+    insert into flight_info_check (id, business_type, report_code, 
+      flight_name, flight_card, first_class, 
+      flight_times, finally_arrived, year_fight_times, 
+      economy_class, frequent_reach_city, average_fare, 
+      total_flight, memory_time, create_time, 
+      update_time, create_user, update_user, 
+      is_delete)
+    values (#{id,jdbcType=CHAR}, #{businessType,jdbcType=CHAR}, #{reportCode,jdbcType=VARCHAR}, 
+      #{flightName,jdbcType=VARCHAR}, #{flightCard,jdbcType=VARCHAR}, #{firstClass,jdbcType=VARCHAR}, 
+      #{flightTimes,jdbcType=VARCHAR}, #{finallyArrived,jdbcType=VARCHAR}, #{yearFightTimes,jdbcType=VARCHAR}, 
+      #{economyClass,jdbcType=VARCHAR}, #{frequentReachCity,jdbcType=VARCHAR}, #{averageFare,jdbcType=VARCHAR}, 
+      #{totalFlight,jdbcType=VARCHAR}, #{memoryTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.fbf.entity.FlightInfoCheck" >
+    insert into flight_info_check
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="reportCode != null" >
+        report_code,
+      </if>
+      <if test="flightName != null" >
+        flight_name,
+      </if>
+      <if test="flightCard != null" >
+        flight_card,
+      </if>
+      <if test="firstClass != null" >
+        first_class,
+      </if>
+      <if test="flightTimes != null" >
+        flight_times,
+      </if>
+      <if test="finallyArrived != null" >
+        finally_arrived,
+      </if>
+      <if test="yearFightTimes != null" >
+        year_fight_times,
+      </if>
+      <if test="economyClass != null" >
+        economy_class,
+      </if>
+      <if test="frequentReachCity != null" >
+        frequent_reach_city,
+      </if>
+      <if test="averageFare != null" >
+        average_fare,
+      </if>
+      <if test="totalFlight != null" >
+        total_flight,
+      </if>
+      <if test="memoryTime != null" >
+        memory_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="reportCode != null" >
+        #{reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="flightName != null" >
+        #{flightName,jdbcType=VARCHAR},
+      </if>
+      <if test="flightCard != null" >
+        #{flightCard,jdbcType=VARCHAR},
+      </if>
+      <if test="firstClass != null" >
+        #{firstClass,jdbcType=VARCHAR},
+      </if>
+      <if test="flightTimes != null" >
+        #{flightTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="finallyArrived != null" >
+        #{finallyArrived,jdbcType=VARCHAR},
+      </if>
+      <if test="yearFightTimes != null" >
+        #{yearFightTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="economyClass != null" >
+        #{economyClass,jdbcType=VARCHAR},
+      </if>
+      <if test="frequentReachCity != null" >
+        #{frequentReachCity,jdbcType=VARCHAR},
+      </if>
+      <if test="averageFare != null" >
+        #{averageFare,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFlight != null" >
+        #{totalFlight,jdbcType=VARCHAR},
+      </if>
+      <if test="memoryTime != null" >
+        #{memoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.newtouch.fbf.entity.FlightInfoCheckExample" resultType="java.lang.Integer" >
+    select count(*) from flight_info_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update flight_info_check
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=CHAR},
+      </if>
+      <if test="record.reportCode != null" >
+        report_code = #{record.reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flightName != null" >
+        flight_name = #{record.flightName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flightCard != null" >
+        flight_card = #{record.flightCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstClass != null" >
+        first_class = #{record.firstClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flightTimes != null" >
+        flight_times = #{record.flightTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finallyArrived != null" >
+        finally_arrived = #{record.finallyArrived,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yearFightTimes != null" >
+        year_fight_times = #{record.yearFightTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.economyClass != null" >
+        economy_class = #{record.economyClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frequentReachCity != null" >
+        frequent_reach_city = #{record.frequentReachCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.averageFare != null" >
+        average_fare = #{record.averageFare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalFlight != null" >
+        total_flight = #{record.totalFlight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memoryTime != null" >
+        memory_time = #{record.memoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUser != null" >
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update flight_info_check
+    set id = #{record.id,jdbcType=CHAR},
+      business_type = #{record.businessType,jdbcType=CHAR},
+      report_code = #{record.reportCode,jdbcType=VARCHAR},
+      flight_name = #{record.flightName,jdbcType=VARCHAR},
+      flight_card = #{record.flightCard,jdbcType=VARCHAR},
+      first_class = #{record.firstClass,jdbcType=VARCHAR},
+      flight_times = #{record.flightTimes,jdbcType=VARCHAR},
+      finally_arrived = #{record.finallyArrived,jdbcType=VARCHAR},
+      year_fight_times = #{record.yearFightTimes,jdbcType=VARCHAR},
+      economy_class = #{record.economyClass,jdbcType=VARCHAR},
+      frequent_reach_city = #{record.frequentReachCity,jdbcType=VARCHAR},
+      average_fare = #{record.averageFare,jdbcType=VARCHAR},
+      total_flight = #{record.totalFlight,jdbcType=VARCHAR},
+      memory_time = #{record.memoryTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      update_user = #{record.updateUser,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.fbf.entity.FlightInfoCheck" >
+    update flight_info_check
+    <set >
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=CHAR},
+      </if>
+      <if test="reportCode != null" >
+        report_code = #{reportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="flightName != null" >
+        flight_name = #{flightName,jdbcType=VARCHAR},
+      </if>
+      <if test="flightCard != null" >
+        flight_card = #{flightCard,jdbcType=VARCHAR},
+      </if>
+      <if test="firstClass != null" >
+        first_class = #{firstClass,jdbcType=VARCHAR},
+      </if>
+      <if test="flightTimes != null" >
+        flight_times = #{flightTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="finallyArrived != null" >
+        finally_arrived = #{finallyArrived,jdbcType=VARCHAR},
+      </if>
+      <if test="yearFightTimes != null" >
+        year_fight_times = #{yearFightTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="economyClass != null" >
+        economy_class = #{economyClass,jdbcType=VARCHAR},
+      </if>
+      <if test="frequentReachCity != null" >
+        frequent_reach_city = #{frequentReachCity,jdbcType=VARCHAR},
+      </if>
+      <if test="averageFare != null" >
+        average_fare = #{averageFare,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFlight != null" >
+        total_flight = #{totalFlight,jdbcType=VARCHAR},
+      </if>
+      <if test="memoryTime != null" >
+        memory_time = #{memoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.fbf.entity.FlightInfoCheck" >
+    update flight_info_check
+    set business_type = #{businessType,jdbcType=CHAR},
+      report_code = #{reportCode,jdbcType=VARCHAR},
+      flight_name = #{flightName,jdbcType=VARCHAR},
+      flight_card = #{flightCard,jdbcType=VARCHAR},
+      first_class = #{firstClass,jdbcType=VARCHAR},
+      flight_times = #{flightTimes,jdbcType=VARCHAR},
+      finally_arrived = #{finallyArrived,jdbcType=VARCHAR},
+      year_fight_times = #{yearFightTimes,jdbcType=VARCHAR},
+      economy_class = #{economyClass,jdbcType=VARCHAR},
+      frequent_reach_city = #{frequentReachCity,jdbcType=VARCHAR},
+      average_fare = #{averageFare,jdbcType=VARCHAR},
+      total_flight = #{totalFlight,jdbcType=VARCHAR},
+      memory_time = #{memoryTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>
